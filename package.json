@@ -3,14 +3,25 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint ."
+  },
   "bin": "./index.js",
   "author": "",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "dependencies": {
     "edit-json-file": "1.4.1",
     "kleur": "4.1.0",
-    "prompts": "2.3.2"
+    "prompts": "2.3.2",
+    "shelljs": "^0.8.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-config-node": "^4.1.0",
+    "husky": "^4.2.5"
+  }
 }
