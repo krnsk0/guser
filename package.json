@@ -8,7 +8,7 @@
   },
   "bin": "./index.js",
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "commander": "6.0.0",
     "edit-json-file": "^1.4.1",
