@@ -25,8 +25,7 @@ const addUserPrompt = () =>
 const addUser = () => {
   addUserPrompt().then(({ username, email }) => {
     if (username === undefined || email === undefined) {
-      console.log(kleur.red('Exiting guser'));
-      process.exit(0);
+      throw new Error('SIGINT');
     } else {
       const hash = createHash('sha1');
       hash.update(username + email);

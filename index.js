@@ -1,4 +1,9 @@
 #!/usr/bin/env node
 const topLevelMenu = require('./src/topLevelMenu');
 
-topLevelMenu();
+try {
+  topLevelMenu();
+} catch (e) {
+  console.error(e);
+  process.exit(0);
+}
