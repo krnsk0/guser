@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['node'],
+  extends: ['node', 'prettier'],
   rules: {
     'no-process-exit': 0,
     'import/no-commonjs': 0,

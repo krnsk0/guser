@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint . --ignore-path ./.lintignore",
+    "format-fix": "prettier . --ignore-path ./.lintignore --write"
   },
   "bin": "./index.js",
   "author": "jkurinsky@gmail.com",
   "license": "MIT",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run format-fix && npm run lint"
     }
   },
   "dependencies": {
@@ -22,7 +23,9 @@
   },
   "devDependencies": {
     "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^6.11.0",
     "husky": "^4.2.5",
-    "jest": "^26.4.0"
+    "jest": "^26.4.0",
+    "prettier": "^2.0.5"
   }
 }
