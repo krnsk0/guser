@@ -7,7 +7,7 @@
     "lint": "eslint ."
   },
   "bin": "./index.js",
-  "author": "",
+  "author": "jkurinsky@gmail.com",
   "license": "MIT",
   "husky": {
     "hooks": {

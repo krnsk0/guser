@@ -1,11 +1,26 @@
-const editJsonFile = require('edit-json-file');
 const kleur = require('kleur');
+const prompts = require('prompts');
 const { createHash } = require('crypto');
+const file = require('../utils/jsonFile');
 
-const addUserPrompt = require('./addUserPrompt');
-
-// initialize file if it doesn't exist
-const file = editJsonFile(`${__dirname}/users.json`, { autosave: true });
+const addUserPrompt = () =>
+  prompts(
+    [
+      {
+        type: 'text',
+        name: 'username',
+        message: "Enter the user's username",
+        max: 50,
+      },
+      {
+        type: 'text',
+        name: 'email',
+        message: "Enter the user's email",
+        max: 50,
+      },
+    ],
+    {}
+  );
 
 const addUser = () => {
   addUserPrompt().then(({ username, email }) => {
@@ -24,12 +39,4 @@ const addUser = () => {
   });
 };
 
-const removeUser = () => {
-  console.log('removeUser: ', removeUser);
-};
-
-const listUsers = () => {
-  console.log('listUsers: ', listUsers);
-};
-
-module.exports = { addUser, removeUser, listUsers };
+module.exports = { addUser };
