@@ -24,6 +24,7 @@
   "devDependencies": {
     "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.20.0",
     "husky": "^4.2.5",
     "jest": "^26.4.0",
     "prettier": "^2.0.5"
