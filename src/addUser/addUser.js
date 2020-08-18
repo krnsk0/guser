@@ -22,20 +22,28 @@ const addUserPrompt = () =>
     {}
   );
 
+const makeUserData = ({ username, email }) => {
+  // this handles ctrl+c while the menu is open
+  if (username === undefined || email === undefined) {
+    throw new Error('SIGINT');
+  }
+  // happy path
+  const hash = createHash('sha1');
+  hash.update(username + email);
+  const digest = hash.digest('base64');
+  return [digest, { username, email }];
+};
+
 const addUser = () => {
-  addUserPrompt().then(({ username, email }) => {
-    if (username === undefined || email === undefined) {
-      throw new Error('SIGINT');
-    } else {
-      const hash = createHash('sha1');
-      hash.update(username + email);
-      const digest = hash.digest('base64');
-      file.set(digest, { username, email });
+  return new Promise((resolve) => {
+    addUserPrompt().then(({ username, email }) => {
+      file.set(...makeUserData({ username, email }));
       console.log(
         kleur.green(`Added user: `) + username + kleur.green(', ') + email
       );
-    }
+      resolve();
+    });
   });
 };
 
-module.exports = { addUser };
+module.exports = { addUser, makeUserData };
