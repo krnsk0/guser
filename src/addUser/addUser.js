@@ -23,11 +23,6 @@ const addUserPrompt = () =>
   );
 
 const makeUserDataHash = ({ username, email }) => {
-  // this handles ctrl+c while the menu is open
-  if (username === undefined || email === undefined) {
-    throw new Error('SIGINT');
-  }
-  // happy path
   const hash = createHash('sha1');
   hash.update(username + email);
   const digest = hash.digest('base64');
@@ -38,6 +33,8 @@ const addUser = () =>
   new Promise((resolve, reject) => {
     addUserPrompt().then(({ username, email }) => {
       if (username === undefined || email === undefined) {
+        console.table('GOT HERE 1');
+
         return reject(new Error('SIGINT'));
       }
       file.set(...makeUserDataHash({ username, email }));

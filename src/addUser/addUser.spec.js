@@ -29,7 +29,6 @@ describe('The addUser fucntion', () => {
   it('should eventually make a call to write to the config file when passed good data', async () => {
     const testData = { username: 'abcdefg', email: 'abc@def.com' };
     prompts.inject([testData.username, testData.email]);
-
     await addUser();
     expect(file.set.mock.calls[0][0]).toStrictEqual(
       '9YEyhiVx/8iox+zODlakpPCwehg='
