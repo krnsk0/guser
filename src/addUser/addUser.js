@@ -38,7 +38,7 @@ const addUser = () =>
   new Promise((resolve, reject) => {
     addUserPrompt().then(({ username, email }) => {
       if (username === undefined || email === undefined) {
-        reject(new Error('SIGINT'));
+        return reject(new Error('SIGINT'));
       }
       file.set(...makeUserDataHash({ username, email }));
       console.log(

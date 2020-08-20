@@ -62,7 +62,7 @@ const topLevelMenu = async () =>
   new Promise((resolve, reject) => {
     topLevelPrompt().then(({ choice }) => {
       if (choice === undefined) {
-        reject(new Error('SIGINT'));
+        return reject(new Error('SIGINT'));
       }
       choiceHandlers[choice]()
         .then(resolve)
