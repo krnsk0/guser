@@ -22,7 +22,7 @@ const addUserPrompt = () =>
     {}
   );
 
-const makeUserData = ({ username, email }) => {
+const makeUserDataHash = ({ username, email }) => {
   // this handles ctrl+c while the menu is open
   if (username === undefined || email === undefined) {
     throw new Error('SIGINT');
@@ -34,16 +34,18 @@ const makeUserData = ({ username, email }) => {
   return [digest, { username, email }];
 };
 
-const addUser = () => {
-  return new Promise((resolve) => {
+const addUser = () =>
+  new Promise((resolve, reject) => {
     addUserPrompt().then(({ username, email }) => {
-      file.set(...makeUserData({ username, email }));
+      if (username === undefined || email === undefined) {
+        reject(new Error('SIGINT'));
+      }
+      file.set(...makeUserDataHash({ username, email }));
       console.log(
         kleur.green(`Added user: `) + username + kleur.green(', ') + email
       );
       resolve();
     });
   });
-};
 
-module.exports = { addUser, makeUserData };
+module.exports = { addUser, makeUserDataHash };
