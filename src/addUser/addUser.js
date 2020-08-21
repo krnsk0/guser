@@ -33,8 +33,6 @@ const addUser = () =>
   new Promise((resolve, reject) => {
     addUserPrompt().then(({ username, email }) => {
       if (username === undefined || email === undefined) {
-        console.table('GOT HERE 1');
-
         return reject(new Error('SIGINT'));
       }
       file.set(...makeUserDataHash({ username, email }));

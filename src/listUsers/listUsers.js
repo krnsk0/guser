@@ -1,5 +1,3 @@
-const listUsers = () => {
-  console.log('listUsers: ', listUsers);
-};
+const listUsers = () => console.log('list users');
 
 module.exports = { listUsers };
