@@ -70,4 +70,4 @@ const topLevelMenu = async () =>
     });
   });
 
-module.exports = { topLevelMenu };
+module.exports = { topLevelMenu, SET, UNSET, SHOW, ADD, REMOVE, LIST };
