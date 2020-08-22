@@ -1,22 +1,5 @@
-const { getLongestUsernameLength, listUsers } = require('./listUsers');
-const file = require('../utils/jsonFile');
-
-describe('The getLongestUsernameLengh function', () => {
-  it('should return the length of the longest username', () => {
-    const testData = [
-      { username: '12345', email: 'a@b.com' },
-      { username: '1234', email: 'a@b.com' },
-      { username: '123', email: 'a@b.com' },
-    ];
-
-    expect(getLongestUsernameLength(testData)).toStrictEqual(5);
-  });
-
-  it('should handle an empty array', () => {
-    const testData = [];
-    expect(getLongestUsernameLength(testData)).toStrictEqual(0);
-  });
-});
+const { listUsers } = require('./listUsers');
+const { file } = require('../utils/jsonUtils');
 
 describe.only('The listUsers function', () => {
   const fileGet = file.get();
@@ -42,5 +25,6 @@ describe.only('The listUsers function', () => {
   it('logs out data that matches a snapshot', () => {
     listUsers();
     expect(console.log.mock.calls[0]).toEqual(['abcdefg  abc@def.com']);
+    expect(console.log.mock.calls[1]).toEqual(['aasdf    asdf@asdf.com']);
   });
 });

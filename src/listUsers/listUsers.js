@@ -1,22 +1,13 @@
-const file = require('../utils/jsonFile');
-
-const getLongestUsernameLength = (users) =>
-  users.reduce(
-    (longest, { username }) =>
-      username.length > longest ? username.length : longest,
-    0
-  );
+const { loadUserData } = require('../utils/jsonUtils');
 
 const listUsers = () => {
-  const users = Object.values(file.get());
-  const longestLength = getLongestUsernameLength(users);
+  const userData = Object.values(loadUserData());
 
-  users.forEach(({ username, email }) => {
-    const padding = ' '.repeat(longestLength - username.length + 2);
-    console.log(username + padding + email);
+  userData.forEach(({ paddedUsername, email }) => {
+    console.log(paddedUsername + '  ' + email);
   });
 
   return Promise.resolve();
 };
 
-module.exports = { listUsers, getLongestUsernameLength };
+module.exports = { listUsers };

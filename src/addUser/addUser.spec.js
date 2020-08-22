@@ -1,5 +1,5 @@
 const { makeUserDataHash, addUser } = require('./addUser');
-const file = require('../utils/jsonFile');
+const file = require('../utils/jsonUtils');
 const prompts = require('prompts');
 
 describe('The makeUserDataHash function', () => {
@@ -12,7 +12,7 @@ describe('The makeUserDataHash function', () => {
   });
 });
 
-jest.mock('../utils/jsonFile');
+jest.mock('../utils/jsonUtils');
 
 describe('The addUser fucntion', () => {
   const originalSet = file.set;

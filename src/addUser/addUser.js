@@ -1,7 +1,7 @@
 const kleur = require('kleur');
 const prompts = require('prompts');
 const { createHash } = require('crypto');
-const file = require('../utils/jsonFile');
+const file = require('../utils/jsonUtils');
 
 const addUserPrompt = () =>
   prompts(
