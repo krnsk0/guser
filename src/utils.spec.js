@@ -2,6 +2,7 @@ const {
   getLongestUsernameLength,
   addPaddedUsername,
   makeUserDataHash,
+  makeChoicesFromUsers,
   saveUserData,
   loadUserData,
   file,
@@ -103,5 +104,45 @@ describe('The saveUserData function', () => {
       '9YEyhiVx/8iox+zODlakpPCwehg='
     );
     expect(file.set.mock.calls[0][1]).toStrictEqual(testData);
+  });
+});
+
+describe('The makeChoicesFromUsers function', () => {
+  it('should generate a choices array correctly', () => {
+    const userData = [
+      {
+        username: 'abcdefg',
+        email: 'abc@def.com',
+        paddedUsername: 'abcdefg',
+        hash: '9YEyhiVx/8iox+zODlakpPCwehg=',
+      },
+      {
+        username: 'aasdf',
+        email: 'asdf@asdf.com',
+        paddedUsername: 'aasdf  ',
+        hash: '0y3f/wnta5PBjxSi3UqaSTfM0FU=',
+      },
+    ];
+
+    expect(makeChoicesFromUsers(userData)).toStrictEqual([
+      {
+        title: 'abcdefg  abc@def.com',
+        value: {
+          email: 'abc@def.com',
+          hash: '9YEyhiVx/8iox+zODlakpPCwehg=',
+          paddedUsername: 'abcdefg',
+          username: 'abcdefg',
+        },
+      },
+      {
+        title: 'aasdf    asdf@asdf.com',
+        value: {
+          email: 'asdf@asdf.com',
+          hash: '0y3f/wnta5PBjxSi3UqaSTfM0FU=',
+          paddedUsername: 'aasdf  ',
+          username: 'aasdf',
+        },
+      },
+    ]);
   });
 });

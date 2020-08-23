@@ -1,37 +1,34 @@
 const kleur = require('kleur');
 const prompts = require('prompts');
-const file = require('../utils');
+const {
+  loadUserData,
+  removeUserByHash,
+  makeChoicesFromUsers,
+} = require('../utils');
 
-const makeChoicesFromUsers = (userFile) =>
-  Object.entries(userFile).map(([hash, { username, email }]) => ({
-    title: `${username}, ${email}`,
-    value: hash,
-  }));
-
-const removeUserPrompt = (userFile) =>
+const removeUserPrompt = (userData) =>
   prompts(
     {
       type: 'select',
-      name: 'userHash',
+      name: 'selectedUserData',
       message: 'Which user should be removed from guser?',
       hint: '(use arrow keys & enter to select)',
-      choices: makeChoicesFromUsers(userFile),
+      choices: makeChoicesFromUsers(userData),
     },
     {}
   );
 
 const removeUser = () =>
   new Promise((resolve, reject) => {
-    const usersObject = file.get();
-    removeUserPrompt(usersObject).then(({ userHash }) => {
-      if (userHash === undefined) {
+    removeUserPrompt(loadUserData()).then(({ selectedUserData }) => {
+      if (selectedUserData === undefined) {
         return reject(new Error('SIGINT'));
       }
-      const { hash, username, email } = usersObject[userHash];
+      const { hash, username, email } = selectedUserData;
+      removeUserByHash(hash);
       console.log(
         kleur.green(`Removing user: `) + username + kleur.green(', ') + email
       );
-      file.unset(hash);
     });
   });
 

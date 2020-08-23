@@ -27,6 +27,14 @@ const makeUserDataHash = ({ username, email }) => {
   return [digest, { username, email }];
 };
 
+const makeChoicesFromUsers = (userData) => {
+  return userData.reduce((output, entry) => {
+    const { paddedUsername, email } = entry;
+    output.push({ value: entry, title: `${paddedUsername}  ${email}` });
+    return output;
+  }, []);
+};
+
 const file = editjsonUtils(path.resolve(__dirname, '..', 'users.json'), {
   autosave: true,
 });
@@ -48,7 +56,7 @@ const saveUserData = ({ username, email }) => {
   file.set(...makeUserDataHash({ username, email }));
 };
 
-const removeUserByHash = ({ hash }) => {
+const removeUserByHash = (hash) => {
   file.unset(hash);
 };
 
@@ -59,5 +67,6 @@ module.exports = {
   makeUserDataHash,
   saveUserData,
   removeUserByHash,
+  makeChoicesFromUsers,
   file,
 };
