@@ -127,21 +127,11 @@ describe('The makeChoicesFromUsers function', () => {
     expect(makeChoicesFromUsers(userData)).toStrictEqual([
       {
         title: 'abcdefg  abc@def.com',
-        value: {
-          email: 'abc@def.com',
-          hash: '9YEyhiVx/8iox+zODlakpPCwehg=',
-          paddedUsername: 'abcdefg',
-          username: 'abcdefg',
-        },
+        value: '9YEyhiVx/8iox+zODlakpPCwehg=',
       },
       {
         title: 'aasdf    asdf@asdf.com',
-        value: {
-          email: 'asdf@asdf.com',
-          hash: '0y3f/wnta5PBjxSi3UqaSTfM0FU=',
-          paddedUsername: 'aasdf  ',
-          username: 'aasdf',
-        },
+        value: '0y3f/wnta5PBjxSi3UqaSTfM0FU=',
       },
     ]);
   });

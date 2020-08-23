@@ -7,12 +7,12 @@ jest.mock('../utils', () => {
 });
 
 describe('The addUser fucntion', () => {
-  const originalLog = console.log;
+  const consoleLog = console.log;
   beforeEach(() => {
     console.log = () => null;
   });
   afterEach(() => {
-    console.log = originalLog;
+    console.log = consoleLog;
   });
 
   it('should eventually make a call to write to the config file when passed good data', async () => {
@@ -22,13 +22,13 @@ describe('The addUser fucntion', () => {
     expect(saveUserData.mock.calls[0][0]).toStrictEqual(testData);
   });
 
-  it('should eventually throw when passed an undefined username', async () => {
+  it('should eventually throw when the user exits the username prompt', async () => {
     prompts.inject([undefined, 'asdf@asdf.com']);
     expect.assertions(1);
     return addUser().catch((e) => expect(e).toStrictEqual(new Error('SIGINT')));
   });
 
-  it('should eventually throw when passed an undefined email', async () => {
+  it('should eventually throw when the user exits the email prompt', async () => {
     prompts.inject(['asdf', undefined]);
     expect.assertions(1);
     return addUser().catch((e) => expect(e).toStrictEqual(new Error('SIGINT')));

@@ -10,7 +10,7 @@ const removeUserPrompt = (userData) =>
   prompts(
     {
       type: 'select',
-      name: 'selectedUserData',
+      name: 'hash',
       message: 'Which user should be removed from guser?',
       hint: '(use arrow keys & enter to select)',
       choices: makeChoicesFromUsers(userData),
@@ -20,15 +20,17 @@ const removeUserPrompt = (userData) =>
 
 const removeUser = () =>
   new Promise((resolve, reject) => {
-    removeUserPrompt(loadUserData()).then(({ selectedUserData }) => {
-      if (selectedUserData === undefined) {
+    const userData = loadUserData();
+    removeUserPrompt(userData).then(({ hash }) => {
+      if (hash === undefined) {
         return reject(new Error('SIGINT'));
       }
-      const { hash, username, email } = selectedUserData;
+      const { username, email } = userData.find((entry) => entry.hash === hash);
       removeUserByHash(hash);
       console.log(
         kleur.green(`Removing user: `) + username + kleur.green(', ') + email
       );
+      resolve();
     });
   });
 

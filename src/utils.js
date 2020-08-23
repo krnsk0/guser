@@ -28,9 +28,8 @@ const makeUserDataHash = ({ username, email }) => {
 };
 
 const makeChoicesFromUsers = (userData) => {
-  return userData.reduce((output, entry) => {
-    const { paddedUsername, email } = entry;
-    output.push({ value: entry, title: `${paddedUsername}  ${email}` });
+  return userData.reduce((output, { paddedUsername, email, hash }) => {
+    output.push({ value: hash, title: `${paddedUsername}  ${email}` });
     return output;
   }, []);
 };
