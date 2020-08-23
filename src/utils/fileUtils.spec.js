@@ -1,4 +1,9 @@
-const { file, loadUserData, saveUserData } = require('./fileUtils');
+const {
+  file,
+  loadUserData,
+  saveUserData,
+  removeUserByHash,
+} = require('./fileUtils');
 
 describe('The loadUserData function', () => {
   const originalGet = file.get;
@@ -53,5 +58,21 @@ describe('The saveUserData function', () => {
       '9YEyhiVx/8iox+zODlakpPCwehg='
     );
     expect(file.set.mock.calls[0][1]).toStrictEqual(testData);
+  });
+});
+
+describe('The removeUserByHash function', () => {
+  const originalUnset = file.unset;
+  beforeEach(() => {
+    file.unset = jest.fn();
+  });
+  afterEach(() => {
+    file.unset = originalUnset;
+  });
+
+  it('should call file.unset() with the right hash', () => {
+    const hash = '!@#$%asdf1324';
+    removeUserByHash(hash);
+    expect(file.unset.mock.calls[0][0]).toBe(hash);
   });
 });
