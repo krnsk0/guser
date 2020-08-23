@@ -27,7 +27,7 @@ const makeUserDataHash = ({ username, email }) => {
   return [digest, { username, email }];
 };
 
-const file = editjsonUtils(path.resolve(__dirname, '..', '..', 'users.json'), {
+const file = editjsonUtils(path.resolve(__dirname, '..', 'users.json'), {
   autosave: true,
 });
 
