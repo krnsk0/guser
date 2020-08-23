@@ -1,5 +1,3 @@
-const path = require('path');
-const editjsonUtils = require('edit-json-file');
 const { createHash } = require('crypto');
 
 const getLongestUsernameLength = (userData) =>
@@ -34,38 +32,9 @@ const makeChoicesFromUsers = (userData) => {
   }, []);
 };
 
-const file = editjsonUtils(path.resolve(__dirname, '..', 'users.json'), {
-  autosave: true,
-});
-
-const loadUserData = () => {
-  const userData = Object.entries(file.get()).reduce(
-    (output, [hash, entry]) => {
-      output.push({ hash, ...entry });
-      return output;
-    },
-    []
-  );
-  const longestUsernameLength = getLongestUsernameLength(userData);
-
-  return addPaddedUsername(userData, longestUsernameLength);
-};
-
-const saveUserData = ({ username, email }) => {
-  file.set(...makeUserDataHash({ username, email }));
-};
-
-const removeUserByHash = (hash) => {
-  file.unset(hash);
-};
-
 module.exports = {
   addPaddedUsername,
   getLongestUsernameLength,
-  loadUserData,
   makeUserDataHash,
-  saveUserData,
-  removeUserByHash,
   makeChoicesFromUsers,
-  file,
 };

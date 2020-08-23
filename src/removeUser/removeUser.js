@@ -1,10 +1,7 @@
 const kleur = require('kleur');
 const prompts = require('prompts');
-const {
-  loadUserData,
-  removeUserByHash,
-  makeChoicesFromUsers,
-} = require('../utils');
+const { loadUserData, removeUserByHash } = require('../utils/fileUtils');
+const { makeChoicesFromUsers } = require('../utils/pureUtils');
 
 const removeUserPrompt = (userData) =>
   prompts(
