@@ -1,6 +1,6 @@
 const kleur = require('kleur');
 const prompts = require('prompts');
-const file = require('../utils/jsonUtils');
+const file = require('../utils');
 
 const makeChoicesFromUsers = (userFile) =>
   Object.entries(userFile).map(([hash, { username, email }]) => ({

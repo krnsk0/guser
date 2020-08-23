@@ -1,7 +1,7 @@
 const kleur = require('kleur');
 const prompts = require('prompts');
-const { createHash } = require('crypto');
-const file = require('../utils/jsonUtils');
+
+const { saveUserData } = require('../utils');
 
 const addUserPrompt = () =>
   prompts(
@@ -22,20 +22,13 @@ const addUserPrompt = () =>
     {}
   );
 
-const makeUserDataHash = ({ username, email }) => {
-  const hash = createHash('sha1');
-  hash.update(username + email);
-  const digest = hash.digest('base64');
-  return [digest, { username, email }];
-};
-
 const addUser = () =>
   new Promise((resolve, reject) => {
     addUserPrompt().then(({ username, email }) => {
       if (username === undefined || email === undefined) {
         return reject(new Error('SIGINT'));
       }
-      file.set(...makeUserDataHash({ username, email }));
+      saveUserData({ username, email });
       console.log(
         kleur.green(`Added user: `) + username + kleur.green(', ') + email
       );
@@ -43,4 +36,4 @@ const addUser = () =>
     });
   });
 
-module.exports = { addUser, makeUserDataHash };
+module.exports = { addUser };

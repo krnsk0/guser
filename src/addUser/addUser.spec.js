@@ -1,28 +1,17 @@
-const { makeUserDataHash, addUser } = require('./addUser');
-const file = require('../utils/jsonUtils');
+const { addUser } = require('./addUser');
+const { saveUserData } = require('../utils');
 const prompts = require('prompts');
 
-describe('The makeUserDataHash function', () => {
-  it('should return the right hash for a given username and email', () => {
-    const testData = { username: 'abcdefg', email: 'abc@def.com' };
-    expect(makeUserDataHash(testData)).toStrictEqual([
-      '9YEyhiVx/8iox+zODlakpPCwehg=',
-      testData,
-    ]);
-  });
+jest.mock('../utils', () => {
+  return { saveUserData: jest.fn() };
 });
 
-jest.mock('../utils/jsonUtils');
-
 describe('The addUser fucntion', () => {
-  const originalSet = file.set;
   const originalLog = console.log;
   beforeEach(() => {
-    file.set = jest.fn();
     console.log = () => null;
   });
   afterEach(() => {
-    file.set = originalSet;
     console.log = originalLog;
   });
 
@@ -30,10 +19,7 @@ describe('The addUser fucntion', () => {
     const testData = { username: 'abcdefg', email: 'abc@def.com' };
     prompts.inject([testData.username, testData.email]);
     await addUser();
-    expect(file.set.mock.calls[0][0]).toStrictEqual(
-      '9YEyhiVx/8iox+zODlakpPCwehg='
-    );
-    expect(file.set.mock.calls[0][1]).toStrictEqual(testData);
+    expect(saveUserData.mock.calls[0][0]).toStrictEqual(testData);
   });
 
   it('should eventually throw when passed an undefined username', async () => {

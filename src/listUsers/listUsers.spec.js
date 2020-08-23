@@ -1,5 +1,5 @@
 const { listUsers } = require('./listUsers');
-const { file } = require('../utils/jsonUtils');
+const { file } = require('../utils');
 
 describe.only('The listUsers function', () => {
   const fileGet = file.get();

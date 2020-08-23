@@ -1,4 +1,4 @@
-const { loadUserData } = require('../utils/jsonUtils');
+const { loadUserData } = require('../utils');
 
 const listUsers = () => {
   const userData = Object.values(loadUserData());
