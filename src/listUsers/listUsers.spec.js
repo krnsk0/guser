@@ -13,7 +13,7 @@ jest.mock('../utils', () => {
   };
 });
 
-describe.only('The listUsers function', () => {
+describe('The listUsers function', () => {
   const consoleLog = console.log;
   beforeEach(() => {
     console.log = jest.fn();
