@@ -3,6 +3,7 @@ const {
   addPaddedUsername,
   makeUserDataHash,
   saveUserData,
+  loadUserData,
   file,
 } = require('./utils');
 
@@ -45,6 +46,33 @@ describe('The makeUserDataHash function', () => {
     expect(makeUserDataHash(testData)).toStrictEqual([
       '9YEyhiVx/8iox+zODlakpPCwehg=',
       testData,
+    ]);
+  });
+});
+
+describe('The loadUserData function', () => {
+  const originalGet = file.get;
+  beforeEach(() => {
+    file.get = jest.fn().mockImplementation(() => {
+      return {
+        '9YEyhiVx/8iox+zODlakpPCwehg=': {
+          username: 'abcdefg',
+          email: 'abc@def.com',
+        },
+        '0y3f/wnta5PBjxSi3UqaSTfM0FU=': {
+          username: 'aasdf',
+          email: 'asdf@asdf.com',
+        },
+      };
+    });
+  });
+  afterEach(() => {
+    file.get = originalGet;
+  });
+  it('should load user data', () => {
+    expect(loadUserData()).toStrictEqual([
+      { username: 'abcdefg', email: 'abc@def.com', paddedUsername: 'abcdefg' },
+      { username: 'aasdf', email: 'asdf@asdf.com', paddedUsername: 'aasdf  ' },
     ]);
   });
 });
