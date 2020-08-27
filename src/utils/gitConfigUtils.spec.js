@@ -1,5 +1,36 @@
-describe('This placeholder test', () => {
-  it('should pass', () => {
-    expect(true).toBe(true);
+const shell = require('shelljs');
+const { bailIfNoGit } = require('./gitConfigUtils');
+
+describe('The bailIfNoGit function', () => {
+  const which = shell.which;
+  const exit = shell.exit;
+  const log = console.log;
+  beforeEach(() => {
+    shell.which = jest.fn();
+    shell.exit = jest.fn();
+    console.log = jest.fn();
+  });
+
+  afterEach(() => {
+    shell.which = which;
+    shell.exit = exit;
+    console.log = log;
+  });
+
+  it('should not call console.log or exit when git is present', () => {
+    shell.which = jest.fn().mockImplementation(() => true);
+
+    bailIfNoGit();
+
+    expect(shell.exit.mock.calls.length).toBe(0);
+    expect(console.log.mock.calls.length).toBe(0);
+  });
+  it('should call console.log and exit when git is present', () => {
+    shell.which = jest.fn().mockImplementation(() => false);
+
+    bailIfNoGit();
+
+    expect(shell.exit.mock.calls.length).toBe(1);
+    expect(console.log.mock.calls.length).toBe(1);
   });
 });
