@@ -1,12 +1,16 @@
 const path = require('path');
 const editjsonUtils = require('edit-json-file');
+const os = require('os');
+
 const {
   getLongestUsernameLength,
   addPaddedUsername,
   makeUserDataHash,
 } = require('./pureUtils');
 
-const file = editjsonUtils(path.resolve(__dirname, '..', 'users.json'), {
+const userDataPath = path.resolve(os.homedir(), '.guser');
+
+const file = editjsonUtils(userDataPath, {
   autosave: true,
 });
 

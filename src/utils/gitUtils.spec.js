@@ -1,5 +1,5 @@
 const shell = require('shelljs');
-const { bailIfGitNotFound } = require('./gitConfigUtils');
+const { bailIfGitNotFound } = require('./gitUtils');
 
 describe('The bailIfGitNotFound function', () => {
   const which = shell.which;
