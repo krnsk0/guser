@@ -1,10 +1,10 @@
 const shell = require('shelljs');
 
-const bailIfNoGit = () => {
+const bailIfGitNotFound = () => {
   if (!shell.which('git')) {
     console.log('This script requires git');
     shell.exit(1);
   }
 };
 
-module.exports = { bailIfNoGit };
+module.exports = { bailIfGitNotFound };

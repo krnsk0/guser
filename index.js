@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const topLevelMenu = require('./src/topLevelMenu');
 const kleur = require('kleur');
-const { bailIfNoGit } = require('./src/utils/gitConfigUtils');
+const { bailIfGitNotFound } = require('./src/utils/gitConfigUtils');
 
-bailIfNoGit();
+bailIfGitNotFound();
 
 topLevelMenu()
   .then(() => null)

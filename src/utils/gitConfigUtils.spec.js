@@ -1,7 +1,7 @@
 const shell = require('shelljs');
-const { bailIfNoGit } = require('./gitConfigUtils');
+const { bailIfGitNotFound } = require('./gitConfigUtils');
 
-describe('The bailIfNoGit function', () => {
+describe('The bailIfGitNotFound function', () => {
   const which = shell.which;
   const exit = shell.exit;
   const log = console.log;
@@ -20,7 +20,7 @@ describe('The bailIfNoGit function', () => {
   it('should not call console.log or exit when git is present', () => {
     shell.which = jest.fn().mockImplementation(() => true);
 
-    bailIfNoGit();
+    bailIfGitNotFound();
 
     expect(shell.exit.mock.calls.length).toBe(0);
     expect(console.log.mock.calls.length).toBe(0);
@@ -28,7 +28,7 @@ describe('The bailIfNoGit function', () => {
   it('should call console.log and exit when git is present', () => {
     shell.which = jest.fn().mockImplementation(() => false);
 
-    bailIfNoGit();
+    bailIfGitNotFound();
 
     expect(shell.exit.mock.calls.length).toBe(1);
     expect(console.log.mock.calls.length).toBe(1);
