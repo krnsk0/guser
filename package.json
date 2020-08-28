@@ -20,7 +20,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,css,md,json}": "prettier --write"
   },
   "dependencies": {
     "edit-json-file": "1.4.1",
