@@ -7,7 +7,7 @@
     "test": "jest --coverage",
     "test-watch": "jest --watch",
     "lint": "eslint . --ignore-path ./.lintignore",
-    "format-fix": "prettier . --ignore-path ./.lintignore --write",
+    "format-fix-all": "prettier . --ignore-path ./.lintignore --write",
     "make-badges": "jest-coverage-badges --output './badges'"
   },
   "bin": "./index.js",
@@ -15,9 +15,12 @@
   "license": "MIT",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format-fix && npm run lint",
+      "pre-commit": "lint-staged",
       "pre-push": "npm run test && npm run make-badges && git add badges/* && git commit -m 'update badges' --no-verify --allow-empty"
     }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   },
   "dependencies": {
     "edit-json-file": "1.4.1",
@@ -32,6 +35,7 @@
     "husky": "4.2.5",
     "jest": "26.4.0",
     "jest-coverage-badges": "1.1.2",
+    "lint-staged": "^10.2.13",
     "prettier": "2.0.5"
   }
 }
