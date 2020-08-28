@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --passWithNoTests",
+    "test": "jest --coverage",
     "test-watch": "jest --watch",
     "lint": "eslint . --ignore-path ./.lintignore",
     "format-fix": "prettier . --ignore-path ./.lintignore --write",
@@ -16,7 +16,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run format-fix && npm run lint",
-      "pre-push": "npm run test && npm run make-badges && git add badges/* && git commit -m 'update badges'"
+      "pre-push": "npm run test && npm run make-badges && git add badges/* && git commit -m 'update badges' --no-verify"
     }
   },
   "dependencies": {
