@@ -16,7 +16,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run format-fix && npm run lint",
-      "pre-push": "npm run test && npm run make-badges && git add badges/* && git commit -m 'update badges' --no-verify"
+      "pre-push": "npm run test && npm run make-badges && git add badges/* && git commit -m 'update badges' --no-verify --allow-empty"
     }
   },
   "dependencies": {
