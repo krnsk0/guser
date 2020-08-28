@@ -24,6 +24,8 @@ If you want the [unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy#
 
 # Installation
 
+Requires `node` 10.x, 12.x, or 14.x.
+
 ```
 npm i -g guser
 ```
