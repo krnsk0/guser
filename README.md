@@ -18,7 +18,9 @@
 
 Do you manage multiple git users on a single machine? Do you often switch between work and personal git accounts and configure different repositories to use differnet accounts? `guser` is an interactive tool inspired by [WindomZ's `gituser.js`](https://github.com/WindomZ/gituser.js) that helps make git user-switching a tiny bit easier by remembering user/email combinations you've used in the past.
 
-If you want the [unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy#:~:text=The%20Unix%20philosophy%20is%20documented,%2C%20as%20yet%20unknown%2C%20program.) version of this tool, go with `gituser.js`, but if you like interactive input, choose `guser`. While this tool "does one thing and one thing well", it is not readily scriptable.
+<img src="./static/screenshot.jpg" width="340">
+
+If you want the [unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy#:~:text=The%20Unix%20philosophy%20is%20documented,%2C%20as%20yet%20unknown%2C%20program.) version of this tool, go with [`gituser.js`](https://github.com/WindomZ/gituser.js), but if you like interactive input, choose `guser`: while this tool does one thing and does it well, it is not readily scriptable.
 
 # Installation
 
