@@ -1,4 +1,4 @@
-name: Node.js CI
+name: run tests for three node versions
 
 on:
   push:
