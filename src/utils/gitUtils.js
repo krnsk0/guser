@@ -7,6 +7,11 @@ const bailIfGitNotFound = () => {
   }
 };
 
+const isWorkingDirAGitRepo = () => {
+  const { code } = shell.exec(`git status`, { silent: true });
+  return !code;
+};
+
 const setLocalGitUser = (user, email) => {
   const command = `git config user.name "${user}" && git config user.email "${email}"`;
   if (shell.exec(command).code !== 0) {
@@ -28,23 +33,19 @@ const unsetLocalGitUser = () => {
 const showLocalGitUser = () => {
   const user = shell.exec(`git config --local user.name`, { silent: true })
     .stdout;
-  if (user.startsWith('error')) console.log(`no local user set`);
-  else console.log(`local user: ${user}`);
   const email = shell.exec(`git config --local user.email`, { silent: true })
     .stdout;
+  if (user.startsWith('error')) console.log(`no local user set`);
+  else console.log(`local user: ${user}`);
+
   if (email.startsWith('error')) console.log(`no local email set`);
   else console.log(`local email: ${email}`);
 };
 
-const isWorkingDirAGitRepo = () => {
-  const { code } = shell.exec(`git status`, { silent: true });
-  return !code;
-};
-
 module.exports = {
   bailIfGitNotFound,
+  isWorkingDirAGitRepo,
   setLocalGitUser,
   unsetLocalGitUser,
   showLocalGitUser,
-  isWorkingDirAGitRepo,
 };
