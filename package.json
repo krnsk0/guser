@@ -24,6 +24,10 @@
     "config",
     "user"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:krnsk0/guser.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
