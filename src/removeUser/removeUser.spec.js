@@ -18,16 +18,6 @@ jest.mock('../utils/fileUtils', () => ({
       hash: 'Zl0YIYORhnHCFLIxhqCY2YgQA1M=',
     },
   ],
-  makeChoicesFromUsers: () => [
-    {
-      title: 'test2 test2@test2.com',
-      hash: 'Zl0YIYORhnHCFLIxhqCY2YgQA1M=',
-    },
-    {
-      title: 'test test@test.com',
-      hash: 'augVvF8rbOCJMOU6rWIbr+CUGac=',
-    },
-  ],
 }));
 
 jest.mock('../utils/pureUtils', () => ({
