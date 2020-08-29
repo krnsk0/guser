@@ -7,11 +7,6 @@ const bailIfGitNotFound = () => {
   }
 };
 
-const isWorkingDirAGitRepo = () => {
-  const { code } = shell.exec(`git status`, { silent: true });
-  return !code;
-};
-
 const setLocalGitUser = (user, email) => {
   const command = `git config user.name "${user}" && git config user.email "${email}"`;
   if (shell.exec(command).code !== 0) {
@@ -44,7 +39,6 @@ const showLocalGitUser = () => {
 
 module.exports = {
   bailIfGitNotFound,
-  isWorkingDirAGitRepo,
   setLocalGitUser,
   unsetLocalGitUser,
   showLocalGitUser,

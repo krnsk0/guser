@@ -6,7 +6,6 @@ const {
   ADD,
   REMOVE,
   LIST,
-  topLevelChoiceFactory,
 } = require('./topLevelMenu');
 
 const { addUser, setSimulateSigint } = require('../addUser/addUser');
@@ -15,6 +14,36 @@ const { removeUser } = require('../removeUser/removeUser');
 const { setConfig } = require('../setConfig/setConfig');
 const { showConfig } = require('../showConfig/showConfig');
 const { unsetConfig } = require('../unsetConfig/unsetConfig');
+
+jest.mock('./helpers', () => ({
+  topLevelChoiceFactory: () => [
+    {
+      title: 'Set local git user config',
+      value: 'set',
+    },
+    {
+      title: 'Show local git user config',
+      value: 'show',
+    },
+    {
+      title: 'Unset local git user config',
+      value: 'unset',
+    },
+    {
+      title: 'Remove user config from guser',
+      value: 'remove',
+    },
+    {
+      title: 'List configs in guser',
+      value: 'list',
+    },
+    {
+      title: 'Add user config to guser',
+      value: 'add',
+    },
+  ],
+  isWorkingDirAGitRepo: () => true,
+}));
 
 jest.mock('../addUser/addUser', () => {
   let simulateSigint = false;
@@ -76,48 +105,6 @@ describe('The topLevelMenu fucntion', () => {
     setSimulateSigint(true);
     return topLevelMenu().catch((e) =>
       expect(e).toStrictEqual(new Error('SIGINT'))
-    );
-  });
-});
-
-describe('The topLevelChoiceFactory function', () => {
-  it('should return the right choices when in a repo and users are saved', () => {
-    expect(topLevelChoiceFactory({ isRepo: true, usersSaved: true })).toEqual([
-      {
-        title: 'Set local git user config',
-        value: 'set',
-      },
-      {
-        title: 'Show local git user config',
-        value: 'show',
-      },
-      {
-        title: 'Unset local git user config',
-        value: 'unset',
-      },
-      {
-        title: 'Remove user config from guser',
-        value: 'remove',
-      },
-      {
-        title: 'List configs in guser',
-        value: 'list',
-      },
-      {
-        title: 'Add user config to guser',
-        value: 'add',
-      },
-    ]);
-  });
-
-  it('should return the right choices when not in a repo and no users are saved', () => {
-    expect(topLevelChoiceFactory({ isRepo: false, usersSaved: false })).toEqual(
-      [
-        {
-          title: 'Add user config to guser',
-          value: 'add',
-        },
-      ]
     );
   });
 });
