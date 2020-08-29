@@ -12,7 +12,6 @@ describe('The bailIfGitNotFound function', () => {
   const exit = shell.exit;
   const log = console.log;
   beforeEach(() => {
-    shell.which = jest.fn();
     shell.exit = jest.fn();
     console.log = jest.fn();
   });
@@ -45,7 +44,6 @@ describe('The setLocalGitUser function', () => {
   const exec = shell.exec;
   const log = console.log;
   beforeEach(() => {
-    shell.exec = jest.fn();
     console.log = jest.fn();
   });
 
@@ -95,7 +93,6 @@ describe('The unsetLocalGitUser function', () => {
   const exec = shell.exec;
   const log = console.log;
   beforeEach(() => {
-    shell.exec = jest.fn();
     console.log = jest.fn();
   });
 
@@ -137,7 +134,6 @@ describe('The showLocalGitUser function', () => {
   const exec = shell.exec;
   const log = console.log;
   beforeEach(() => {
-    shell.exec = jest.fn();
     console.log = jest.fn();
   });
 
