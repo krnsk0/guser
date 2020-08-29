@@ -1,4 +1,4 @@
-const { unsetLocalGitUser } = require('../utils/gitUtils');
+const { unsetLocalGitUser } = require('./helpers');
 
 const unsetConfig = () =>
   new Promise((resolve) => {

@@ -1,6 +1,6 @@
 const { listUsers } = require('./listUsers');
 
-jest.mock('../utils/fileUtils', () => {
+jest.mock('../utils/utils', () => {
   return {
     loadUserData: () => [
       { username: 'abcdefg', email: 'abc@def.com', paddedUsername: 'abcdefg' },

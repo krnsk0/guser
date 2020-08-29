@@ -1,7 +1,7 @@
 const { showConfig } = require('./showConfig');
-const { showLocalGitUser } = require('../utils/gitUtils');
+const { showLocalGitUser } = require('./helpers');
 
-jest.mock('../utils/gitUtils', () => ({
+jest.mock('./helpers', () => ({
   showLocalGitUser: jest.fn(),
 }));
 

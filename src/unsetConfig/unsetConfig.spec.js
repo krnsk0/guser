@@ -1,7 +1,7 @@
 const { unsetConfig } = require('./unsetConfig');
-const { unsetLocalGitUser } = require('../utils/gitUtils');
+const { unsetLocalGitUser } = require('./helpers');
 
-jest.mock('../utils/gitUtils', () => ({
+jest.mock('./helpers', () => ({
   unsetLocalGitUser: jest.fn(),
 }));
 

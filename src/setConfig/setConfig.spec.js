@@ -1,8 +1,8 @@
 const { setConfig } = require('./setConfig');
-const { setLocalGitUser } = require('../utils/gitUtils');
+const { setLocalGitUser } = require('./helpers');
 const prompts = require('prompts');
 
-jest.mock('../utils/fileUtils', () => ({
+jest.mock('../utils/utils', () => ({
   loadUserData: () => [
     {
       username: 'test',
@@ -19,7 +19,7 @@ jest.mock('../utils/fileUtils', () => ({
   ],
 }));
 
-jest.mock('../utils/gitUtils', () => ({
+jest.mock('./helpers', () => ({
   setLocalGitUser: jest.fn(),
 }));
 

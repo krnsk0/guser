@@ -1,4 +1,4 @@
-const { showLocalGitUser } = require('../utils/gitUtils');
+const { showLocalGitUser } = require('./helpers');
 
 const showConfig = () =>
   new Promise((resolve) => {

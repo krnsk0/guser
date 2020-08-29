@@ -1,8 +1,8 @@
 const { addUser } = require('./addUser');
-const { saveUserData } = require('../utils/fileUtils');
+const { saveUserData } = require('../utils/utils');
 const prompts = require('prompts');
 
-jest.mock('../utils/fileUtils', () => {
+jest.mock('../utils/utils', () => {
   return { saveUserData: jest.fn() };
 });
 

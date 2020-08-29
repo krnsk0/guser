@@ -8,7 +8,7 @@ const addUser = require('../addUser');
 const listUsers = require('../listUsers');
 const removeUser = require('../removeUser');
 
-const { loadUserData } = require('../utils/fileUtils');
+const { loadUserData } = require('../utils/utils');
 
 const {
   topLevelChoiceFactory,

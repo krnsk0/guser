@@ -3,7 +3,7 @@ const {
   loadUserData,
   saveUserData,
   removeUserByHash,
-} = require('./fileUtils');
+} = require('./utils');
 
 describe('The loadUserData function', () => {
   const originalGet = file.get;

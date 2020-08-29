@@ -1,7 +1,7 @@
 const kleur = require('kleur');
 const prompts = require('prompts');
 
-const { saveUserData } = require('../utils/fileUtils');
+const { saveUserData } = require('../utils/utils');
 
 const addUserPrompt = () =>
   prompts(

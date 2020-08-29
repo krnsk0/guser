@@ -1,8 +1,8 @@
 const { removeUser } = require('./removeUser');
-const { removeUserByHash } = require('../utils/fileUtils');
+const { removeUserByHash } = require('../utils/utils');
 const prompts = require('prompts');
 
-jest.mock('../utils/fileUtils', () => ({
+jest.mock('../utils/utils', () => ({
   removeUserByHash: jest.fn(),
   loadUserData: () => [
     {
