@@ -4,6 +4,7 @@ const {
   setLocalGitUser,
   unsetLocalGitUser,
   showLocalGitUser,
+  isWorkingDirAGitRepo,
 } = require('./gitUtils');
 
 describe('The bailIfGitNotFound function', () => {
@@ -171,5 +172,27 @@ describe('The showLocalGitUser function', () => {
     expect(shell.exec.mock.calls[1][0]).toBe(`git config --local user.email`);
     expect(console.log.mock.calls[0][0]).toBe(`no local user set`);
     expect(console.log.mock.calls[1][0]).toBe(`no local email set`);
+  });
+});
+
+describe('The isWorkingDirAGitRepo function', () => {
+  const exec = shell.exec;
+
+  afterEach(() => {
+    shell.exec = exec;
+  });
+
+  it('should shell out and return false when the shell command fails', () => {
+    shell.exec = jest.fn().mockImplementation(() => ({
+      code: 1,
+    }));
+    expect(isWorkingDirAGitRepo()).toBe(false);
+  });
+
+  it('should shell out and return true when the shell command fails', () => {
+    shell.exec = jest.fn().mockImplementation(() => ({
+      code: 0,
+    }));
+    expect(isWorkingDirAGitRepo()).toBe(true);
   });
 });

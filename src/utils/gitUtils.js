@@ -36,9 +36,15 @@ const showLocalGitUser = () => {
   else console.log(`local email: ${email}`);
 };
 
+const isWorkingDirAGitRepo = () => {
+  const { code } = shell.exec(`git status`);
+  return !code;
+};
+
 module.exports = {
   bailIfGitNotFound,
   setLocalGitUser,
   unsetLocalGitUser,
   showLocalGitUser,
+  isWorkingDirAGitRepo,
 };
