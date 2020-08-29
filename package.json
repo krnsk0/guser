@@ -13,6 +13,17 @@
   "bin": "./index.js",
   "author": "jkurinsky@gmail.com",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krnsk0/guser/issues"
+  },
+  "homepage": "https://github.com/krnsk0/guser#readme",
+  "keywords": [
+    "git",
+    "cli",
+    "interactive",
+    "config",
+    "user"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
