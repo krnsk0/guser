@@ -1,7 +1,6 @@
 const prompts = require('prompts');
-const { makeChoicesFromUsers } = require('../utils/pureUtils');
 const { setLocalGitUser } = require('./helpers');
-const { loadUserData } = require('../utils/utils');
+const { loadUserData, makeChoicesFromUsers } = require('../utils');
 
 const setUserPrompt = (userData) =>
   prompts(

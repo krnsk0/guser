@@ -1,8 +1,8 @@
 const { setConfig } = require('./setConfig');
-const { setLocalGitUser } = require('./helpers');
+const { setLocalGitUser, makeChoicesFromUsers } = require('./helpers');
 const prompts = require('prompts');
 
-jest.mock('../utils/utils', () => ({
+jest.mock('../utils', () => ({
   loadUserData: () => [
     {
       username: 'test',
@@ -17,6 +17,16 @@ jest.mock('../utils/utils', () => ({
       hash: 'Zl0YIYORhnHCFLIxhqCY2YgQA1M=',
     },
   ],
+  makeChoicesFromUsers: () => (
+    {
+      title: 'test  test@test.com',
+      value: 'augVvF8rbOCJMOU6rWIbr+CUGac=',
+    },
+    {
+      title: 'test2    test2@test2.com',
+      value: 'Zl0YIYORhnHCFLIxhqCY2YgQA1M=',
+    }
+  ),
 }));
 
 jest.mock('./helpers', () => ({

@@ -1,8 +1,8 @@
 const { removeUser } = require('./removeUser');
-const { removeUserByHash } = require('../utils/utils');
+const { removeUserByHash } = require('../utils');
 const prompts = require('prompts');
 
-jest.mock('../utils/utils', () => ({
+jest.mock('../utils', () => ({
   removeUserByHash: jest.fn(),
   loadUserData: () => [
     {
@@ -18,9 +18,6 @@ jest.mock('../utils/utils', () => ({
       hash: 'Zl0YIYORhnHCFLIxhqCY2YgQA1M=',
     },
   ],
-}));
-
-jest.mock('../utils/pureUtils', () => ({
   makeChoicesFromUsers: () => [
     {
       title: 'test2 test2@test2.com',
