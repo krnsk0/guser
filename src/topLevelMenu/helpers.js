@@ -1,5 +1,6 @@
 const shell = require('shelljs');
-const { SET, UNSET, SHOW, ADD, REMOVE, LIST } = require('./topLevelMenu');
+
+const { SET, UNSET, SHOW, ADD, REMOVE, LIST } = require('./constants');
 
 const topLevelChoiceFactory = ({ isRepo, usersSaved }) => {
   const choices = [];

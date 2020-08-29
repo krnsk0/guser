@@ -9,18 +9,14 @@ const listUsers = require('../listUsers');
 const removeUser = require('../removeUser');
 
 const { loadUserData } = require('../utils/fileUtils');
+
 const {
   topLevelChoiceFactory,
   isWorkingDirAGitRepo,
   bailIfGitNotFound,
 } = require('./helpers');
 
-const SET = 'set';
-const UNSET = 'unset';
-const SHOW = 'show';
-const ADD = 'add';
-const REMOVE = 'remove';
-const LIST = 'list';
+const { SET, UNSET, SHOW, ADD, REMOVE, LIST } = require('./constants');
 
 const topLevelPrompt = () =>
   prompts({
@@ -58,10 +54,4 @@ const topLevelMenu = async () =>
 
 module.exports = {
   topLevelMenu,
-  SET,
-  UNSET,
-  SHOW,
-  ADD,
-  REMOVE,
-  LIST,
 };

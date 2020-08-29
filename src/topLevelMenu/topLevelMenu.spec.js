@@ -1,12 +1,6 @@
-const {
-  topLevelMenu,
-  SET,
-  UNSET,
-  SHOW,
-  ADD,
-  REMOVE,
-  LIST,
-} = require('./topLevelMenu');
+const { topLevelMenu } = require('./topLevelMenu');
+
+const { SET, UNSET, SHOW, ADD, REMOVE, LIST } = require('./constants');
 
 const { addUser, setSimulateSigint } = require('../addUser/addUser');
 const { listUsers } = require('../listUsers/listUsers');
