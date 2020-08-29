@@ -8,7 +8,7 @@
     "test-watch": "jest --watch",
     "lint": "eslint . --ignore-path ./.lintignore",
     "format-fix-all": "prettier . --ignore-path ./.lintignore --write",
-    "make-badges": "jest-coverage-badges --output './static'"
+    "make-badges": "jest-coverage-badges --output './static' && git add static/* && git commit -m 'update badges' --no-verify"
   },
   "bin": "./index.js",
   "author": "jkurinsky@gmail.com",
@@ -16,7 +16,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run test && npm run make-badges && git add static/* && git commit -m 'update badges' --no-verify --allow-empty"
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
