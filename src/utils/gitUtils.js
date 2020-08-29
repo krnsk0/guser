@@ -37,7 +37,7 @@ const showLocalGitUser = () => {
 };
 
 const isWorkingDirAGitRepo = () => {
-  const { code } = shell.exec(`git status`);
+  const { code } = shell.exec(`git status`, { silent: true });
   return !code;
 };
 
