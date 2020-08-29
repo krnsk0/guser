@@ -50,4 +50,15 @@ const isWorkingDirAGitRepo = () => {
   return !code;
 };
 
-module.exports = { topLevelChoiceFactory, isWorkingDirAGitRepo };
+const bailIfGitNotFound = () => {
+  if (!shell.which('git')) {
+    console.log('This script requires git');
+    shell.exit(1);
+  }
+};
+
+module.exports = {
+  topLevelChoiceFactory,
+  isWorkingDirAGitRepo,
+  bailIfGitNotFound,
+};

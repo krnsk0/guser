@@ -9,7 +9,11 @@ const listUsers = require('../listUsers');
 const removeUser = require('../removeUser');
 
 const { loadUserData } = require('../utils/fileUtils');
-const { topLevelChoiceFactory, isWorkingDirAGitRepo } = require('./helpers');
+const {
+  topLevelChoiceFactory,
+  isWorkingDirAGitRepo,
+  bailIfGitNotFound,
+} = require('./helpers');
 
 const SET = 'set';
 const UNSET = 'unset';
@@ -41,6 +45,7 @@ const choiceHandlers = {
 
 const topLevelMenu = async () =>
   new Promise((resolve, reject) => {
+    bailIfGitNotFound();
     topLevelPrompt().then(({ choice }) => {
       if (choice === undefined) {
         return reject(new Error('SIGINT'));

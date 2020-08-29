@@ -1,12 +1,5 @@
 const shell = require('shelljs');
 
-const bailIfGitNotFound = () => {
-  if (!shell.which('git')) {
-    console.log('This script requires git');
-    shell.exit(1);
-  }
-};
-
 const setLocalGitUser = (user, email) => {
   const command = `git config user.name "${user}" && git config user.email "${email}"`;
   if (shell.exec(command).code !== 0) {
@@ -38,7 +31,6 @@ const showLocalGitUser = () => {
 };
 
 module.exports = {
-  bailIfGitNotFound,
   setLocalGitUser,
   unsetLocalGitUser,
   showLocalGitUser,

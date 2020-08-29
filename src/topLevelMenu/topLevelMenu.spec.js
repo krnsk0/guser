@@ -43,6 +43,7 @@ jest.mock('./helpers', () => ({
     },
   ],
   isWorkingDirAGitRepo: () => true,
+  bailIfGitNotFound: () => null,
 }));
 
 jest.mock('../addUser/addUser', () => {
