@@ -6,6 +6,7 @@ const {
   ADD,
   REMOVE,
   LIST,
+  topLevelChoiceFactory,
 } = require('./topLevelMenu');
 
 const { addUser, setSimulateSigint } = require('../addUser/addUser');
@@ -20,6 +21,7 @@ jest.mock('../addUser/addUser', () => {
   return {
     addUser: jest
       .fn()
+      // only need to do this for one function to get coverage of this case
       .mockImplementation(() =>
         simulateSigint ? Promise.reject(new Error('SIGINT')) : Promise.resolve()
       ),
@@ -74,6 +76,48 @@ describe('The topLevelMenu fucntion', () => {
     setSimulateSigint(true);
     return topLevelMenu().catch((e) =>
       expect(e).toStrictEqual(new Error('SIGINT'))
+    );
+  });
+});
+
+describe('The topLevelChoiceFactory function', () => {
+  it('should return the right choices when in a repo and users are saved', () => {
+    expect(topLevelChoiceFactory({ isRepo: true, usersSaved: true })).toEqual([
+      {
+        title: 'Set local git user config',
+        value: 'set',
+      },
+      {
+        title: 'Show local git user config',
+        value: 'show',
+      },
+      {
+        title: 'Unset local git user config',
+        value: 'unset',
+      },
+      {
+        title: 'Remove user config from guser',
+        value: 'remove',
+      },
+      {
+        title: 'List configs in guser',
+        value: 'list',
+      },
+      {
+        title: 'Add user config to guser',
+        value: 'add',
+      },
+    ]);
+  });
+
+  it('should return the right choices when not in a repo and no users are saved', () => {
+    expect(topLevelChoiceFactory({ isRepo: false, usersSaved: false })).toEqual(
+      [
+        {
+          title: 'Add user config to guser',
+          value: 'add',
+        },
+      ]
     );
   });
 });

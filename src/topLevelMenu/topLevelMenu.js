@@ -8,6 +8,9 @@ const addUser = require('../addUser');
 const listUsers = require('../listUsers');
 const removeUser = require('../removeUser');
 
+const { isWorkingDirAGitRepo } = require('../utils/gitUtils');
+const { loadUserData } = require('../utils/fileUtils');
+
 const SET = 'set';
 const UNSET = 'unset';
 const SHOW = 'show';
@@ -15,33 +18,48 @@ const ADD = 'add';
 const REMOVE = 'remove';
 const LIST = 'list';
 
-const makeTopLevelChoices = () => {
-  return [
-    {
+const topLevelChoiceFactory = ({ isRepo, usersSaved }) => {
+  const choices = [];
+
+  if (usersSaved && isRepo) {
+    choices.push({
       title: 'Set local git user config',
       value: SET,
-    },
-    {
-      title: 'Unset local git user config',
-      value: UNSET,
-    },
-    {
-      title: 'Show local git user config',
-      value: SHOW,
-    },
-    {
-      title: 'Add user config to guser',
-      value: ADD,
-    },
-    {
-      title: 'Remove user config from guser',
-      value: REMOVE,
-    },
-    {
-      title: 'List configs in guser',
-      value: LIST,
-    },
-  ];
+    });
+  }
+
+  if (isRepo) {
+    choices.push(
+      {
+        title: 'Show local git user config',
+        value: SHOW,
+      },
+      {
+        title: 'Unset local git user config',
+        value: UNSET,
+      }
+    );
+  }
+
+  if (usersSaved) {
+    choices.push(
+      {
+        title: 'Remove user config from guser',
+        value: REMOVE,
+      },
+      {
+        title: 'List configs in guser',
+        value: LIST,
+      }
+    );
+  }
+
+  choices.push({
+    title: 'Add user config to guser',
+    value: ADD,
+  });
+
+  return choices;
 };
 
 const topLevelPrompt = () =>
@@ -50,7 +68,10 @@ const topLevelPrompt = () =>
     name: 'choice',
     message: 'What would you like to do?',
     hint: '(use arrow keys & enter to select)',
-    choices: makeTopLevelChoices(),
+    choices: topLevelChoiceFactory({
+      isRepo: isWorkingDirAGitRepo(),
+      usersSaved: !!loadUserData().length,
+    }),
   });
 
 const choiceHandlers = {
@@ -74,4 +95,13 @@ const topLevelMenu = async () =>
     });
   });
 
-module.exports = { topLevelMenu, SET, UNSET, SHOW, ADD, REMOVE, LIST };
+module.exports = {
+  topLevelMenu,
+  SET,
+  UNSET,
+  SHOW,
+  ADD,
+  REMOVE,
+  LIST,
+  topLevelChoiceFactory,
+};
