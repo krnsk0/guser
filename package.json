@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --coverage",
     "test-watch": "jest --watch",
+    "test-update": "jest --updateSnapshot",
     "lint": "eslint . --ignore-path ./.lintignore",
     "format-fix-all": "prettier . --ignore-path ./.lintignore --write",
     "make-badges": "jest-coverage-badges --output './static' && git add static/* && git commit -m 'update badges' --no-verify"
