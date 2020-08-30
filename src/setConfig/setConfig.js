@@ -1,4 +1,5 @@
 const prompts = require('prompts');
+const kleur = require('kleur');
 const { setLocalGitUser } = require('./helpers');
 const { loadUserData, makeChoicesFromUsers } = require('../utils');
 
@@ -22,7 +23,13 @@ const setConfig = () =>
         return reject(new Error('SIGINT'));
       }
       const { username, email } = userData.find((entry) => entry.hash === hash);
-      setLocalGitUser(username, email);
+      if (setLocalGitUser(username, email)) {
+        console.log(
+          `${kleur.green('guser set local config to')}: ${username}, ${email}`
+        );
+      } else {
+        console.log(kleur.red(`guser could not set local config`));
+      }
 
       resolve();
     });

@@ -1,5 +1,5 @@
 const { setConfig } = require('./setConfig');
-const { setLocalGitUser, makeChoicesFromUsers } = require('./helpers');
+const { setLocalGitUser } = require('./helpers');
 const prompts = require('prompts');
 
 jest.mock('../utils', () => ({
@@ -30,15 +30,37 @@ jest.mock('../utils', () => ({
 }));
 
 jest.mock('./helpers', () => ({
-  setLocalGitUser: jest.fn(),
+  setLocalGitUser: jest
+    .fn()
+    .mockReturnValueOnce(true)
+    .mockReturnValueOnce(false),
 }));
 
 describe('The setConfig function', () => {
-  it('should display a prompt and pass the user/email of the selected user to the setLocalGitUser function', async () => {
+  const log = console.log;
+  beforeEach(() => {
+    console.log = jest.fn();
+  });
+  afterEach(() => {
+    console.log = log;
+  });
+
+  it('should display a prompt and pass the user/email of the selected user to the setLocalGitUser function, logging on success', async () => {
     prompts.inject('Zl0YIYORhnHCFLIxhqCY2YgQA1M=');
     await setConfig();
-
     expect(setLocalGitUser.mock.calls[0]).toEqual(['test2', 'test2@test2.com']);
+    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
+      `"[32mguser set local config to[39m: test2, test2@test2.com"`
+    );
+  });
+
+  it('should display a prompt and pass the user/email of the selected user to the setLocalGitUser function, logging on failure', async () => {
+    prompts.inject('Zl0YIYORhnHCFLIxhqCY2YgQA1M=');
+    await setConfig();
+    expect(setLocalGitUser.mock.calls[0]).toEqual(['test2', 'test2@test2.com']);
+    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
+      `"[31mguser could not set local config[39m"`
+    );
   });
 
   it('should eventually throw when the user exists the prompt', async () => {
