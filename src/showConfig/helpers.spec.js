@@ -28,7 +28,7 @@ describe('The showLocalGitUser function', () => {
   });
 
   it('should print errors when local user or email not found', () => {
-    shell.exec = jest.fn().mockImplementation((command) => ({
+    shell.exec = jest.fn().mockImplementation(() => ({
       stdout: 'error: key does not contain...',
       code: 0,
     }));
