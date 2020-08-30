@@ -8,6 +8,14 @@ const { removeUser } = require('../removeUser/removeUser');
 const { setConfig } = require('../setConfig/setConfig');
 const { unsetConfig } = require('../unsetConfig/unsetConfig');
 
+jest.mock('../utils', () => ({
+  getLocalGitConfig: jest
+    .fn()
+    .mockImplementationOnce(() => ({ user: 'test', email: 'test@test.com' }))
+    .mockImplementation(() => ({ user: false, email: false })),
+  loadUserData: jest.fn().mockImplementation(() => ({ length: 5 })),
+}));
+
 jest.mock('./helpers', () => ({
   topLevelChoiceFactory: () => [
     {
@@ -65,18 +73,24 @@ const prompts = require('prompts');
 describe('The topLevelMenu fucntion', () => {
   const log = console.log;
   beforeEach(() => {
-    console.log = () => null;
+    console.log = jest.fn();
   });
   afterEach(() => {
     console.log = log;
   });
 
-  it('should eventually throw when passed an undefined choice', async () => {
+  it('should eventually throw when passed an undefined choice, but not before logging the user and email', async () => {
     prompts.inject([undefined]);
-    expect.assertions(1);
-    return topLevelMenu().catch((e) =>
-      expect(e).toStrictEqual(new Error('SIGINT'))
-    );
+    expect.hasAssertions();
+    return topLevelMenu().catch((e) => {
+      expect(e).toStrictEqual(new Error('SIGINT'));
+      expect(console.log.mock.calls[1][0]).toEqual(
+        expect.stringContaining(`test`)
+      );
+      expect(console.log.mock.calls[2][0]).toEqual(
+        expect.stringContaining(`test@test.com`)
+      );
+    });
   });
 
   it('should call all helpers when their corresponding options are selected', async () => {
