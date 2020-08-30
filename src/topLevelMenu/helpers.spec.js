@@ -13,10 +13,6 @@ describe('The topLevelChoiceFactory function', () => {
         value: 'set',
       },
       {
-        title: 'Show local git user config',
-        value: 'show',
-      },
-      {
         title: 'Unset local git user config',
         value: 'unset',
       },

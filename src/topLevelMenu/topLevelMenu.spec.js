@@ -1,12 +1,11 @@
 const { topLevelMenu } = require('./topLevelMenu');
 
-const { SET, UNSET, SHOW, ADD, REMOVE, LIST } = require('./constants');
+const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
 const { addUser, setSimulateSigint } = require('../addUser/addUser');
 const { listUsers } = require('../listUsers/listUsers');
 const { removeUser } = require('../removeUser/removeUser');
 const { setConfig } = require('../setConfig/setConfig');
-const { showConfig } = require('../showConfig/showConfig');
 const { unsetConfig } = require('../unsetConfig/unsetConfig');
 
 jest.mock('./helpers', () => ({
@@ -14,10 +13,6 @@ jest.mock('./helpers', () => ({
     {
       title: 'Set local git user config',
       value: 'set',
-    },
-    {
-      title: 'Show local git user config',
-      value: 'show',
     },
     {
       title: 'Unset local git user config',
@@ -61,9 +56,6 @@ jest.mock('../removeUser/removeUser', () => ({
 jest.mock('../setConfig/setConfig', () => ({
   setConfig: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
-jest.mock('../showConfig/showConfig', () => ({
-  showConfig: jest.fn().mockImplementation(() => Promise.resolve()),
-}));
 jest.mock('../unsetConfig/unsetConfig', () => ({
   unsetConfig: jest.fn().mockImplementation(() => Promise.resolve()),
 }));
@@ -71,6 +63,14 @@ jest.mock('../unsetConfig/unsetConfig', () => ({
 const prompts = require('prompts');
 
 describe('The topLevelMenu fucntion', () => {
+  const log = console.log;
+  beforeEach(() => {
+    console.log = () => null;
+  });
+  afterEach(() => {
+    console.log = log;
+  });
+
   it('should eventually throw when passed an undefined choice', async () => {
     prompts.inject([undefined]);
     expect.assertions(1);
@@ -80,7 +80,7 @@ describe('The topLevelMenu fucntion', () => {
   });
 
   it('should call all helpers when their corresponding options are selected', async () => {
-    prompts.inject([ADD, LIST, REMOVE, SET, SHOW, UNSET]);
+    prompts.inject([ADD, LIST, REMOVE, SET, UNSET]);
     await topLevelMenu();
     expect(addUser).toHaveBeenCalledTimes(1);
     await topLevelMenu();
@@ -89,8 +89,6 @@ describe('The topLevelMenu fucntion', () => {
     expect(removeUser).toHaveBeenCalledTimes(1);
     await topLevelMenu();
     expect(setConfig).toHaveBeenCalledTimes(1);
-    await topLevelMenu();
-    expect(showConfig).toHaveBeenCalledTimes(1);
     await topLevelMenu();
     expect(unsetConfig).toHaveBeenCalledTimes(1);
   });

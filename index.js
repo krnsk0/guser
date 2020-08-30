@@ -3,10 +3,12 @@ const topLevelMenu = require('./src/topLevelMenu');
 const kleur = require('kleur');
 
 topLevelMenu()
-  .then(() => null)
+  .then(() => {
+    console.log(kleur.grey('Exiting guser'));
+  })
   .catch((e) => {
     if (e.message === 'SIGINT') {
       console.log(kleur.red('Exiting guser'));
     }
-    process.exit(0);
+    process.exit(1);
   });

@@ -1,6 +1,6 @@
 const shell = require('shelljs');
 
-const { SET, UNSET, SHOW, ADD, REMOVE, LIST } = require('./constants');
+const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
 const topLevelChoiceFactory = ({ isRepo, usersSaved }) => {
   const choices = [];
@@ -13,16 +13,10 @@ const topLevelChoiceFactory = ({ isRepo, usersSaved }) => {
   }
 
   if (isRepo) {
-    choices.push(
-      {
-        title: 'Show local git user config',
-        value: SHOW,
-      },
-      {
-        title: 'Unset local git user config',
-        value: UNSET,
-      }
-    );
+    choices.push({
+      title: 'Unset local git user config',
+      value: UNSET,
+    });
   }
 
   if (usersSaved) {

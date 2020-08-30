@@ -59,7 +59,7 @@ describe('The setConfig function', () => {
     await setConfig();
     expect(setLocalGitUser.mock.calls[0]).toEqual(['test2', 'test2@test2.com']);
     expect(console.log.mock.calls[0][0]).toEqual(
-      expect.stringContaining(`guser could not set local config`)
+      expect.stringContaining(`Could not set local config`)
     );
   });
 

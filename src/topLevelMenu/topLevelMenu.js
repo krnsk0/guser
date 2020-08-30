@@ -1,14 +1,14 @@
 const prompts = require('prompts');
+const kleur = require('kleur');
 
 const setConfig = require('../setConfig');
 const unsetConfig = require('../unsetConfig');
-const showConfig = require('../showConfig');
 
 const addUser = require('../addUser');
 const listUsers = require('../listUsers');
 const removeUser = require('../removeUser');
 
-const { loadUserData } = require('../utils');
+const { loadUserData, getLocalGitConfig } = require('../utils');
 
 const {
   topLevelChoiceFactory,
@@ -16,7 +16,7 @@ const {
   bailIfGitNotFound,
 } = require('./helpers');
 
-const { SET, UNSET, SHOW, ADD, REMOVE, LIST } = require('./constants');
+const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
 const topLevelPrompt = () =>
   prompts({
@@ -33,7 +33,6 @@ const topLevelPrompt = () =>
 const choiceHandlers = {
   [SET]: setConfig,
   [UNSET]: unsetConfig,
-  [SHOW]: showConfig,
   [ADD]: addUser,
   [REMOVE]: removeUser,
   [LIST]: listUsers,
@@ -42,6 +41,14 @@ const choiceHandlers = {
 const topLevelMenu = async () =>
   new Promise((resolve, reject) => {
     bailIfGitNotFound();
+
+    console.log(kleur.white().bold('Checking for local git config...'));
+    const { user, email } = getLocalGitConfig();
+    if (!user) console.log(kleur.green(`No local git user set`));
+    else console.log(`${kleur.green(`Local git user`)}: ${user}`);
+    if (!email) console.log(kleur.green(`No local git email set`));
+    else console.log(`${kleur.green(`Local git email`)}: ${email}`);
+
     topLevelPrompt().then(({ choice }) => {
       if (choice === undefined) {
         return reject(new Error('SIGINT'));

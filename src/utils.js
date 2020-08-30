@@ -2,6 +2,19 @@ const { createHash } = require('crypto');
 const path = require('path');
 const editjsonUtils = require('edit-json-file');
 const os = require('os');
+const shell = require('shelljs');
+
+const getLocalGitConfig = () => {
+  const user = shell.exec(`git config --local user.name`, { silent: true })
+    .stdout;
+  const email = shell.exec(`git config --local user.email`, { silent: true })
+    .stdout;
+
+  return {
+    user: user.startsWith('error') || !user ? '' : user.trim(),
+    email: email.startsWith('error') || !email ? '' : email.trim(),
+  };
+};
 
 const getLongestUsernameLength = (userData) =>
   userData.reduce(
@@ -63,6 +76,7 @@ const removeUserByHash = (hash) => {
 };
 
 module.exports = {
+  getLocalGitConfig,
   loadUserData,
   saveUserData,
   removeUserByHash,

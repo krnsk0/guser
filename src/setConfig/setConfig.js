@@ -25,10 +25,10 @@ const setConfig = () =>
       const { username, email } = userData.find((entry) => entry.hash === hash);
       if (setLocalGitUser(username, email)) {
         console.log(
-          `${kleur.green('guser set local config to')}: ${username}, ${email}`
+          `${kleur.green('Set local config to')}: ${username}, ${email}`
         );
       } else {
-        console.log(kleur.red(`guser could not set local config`));
+        console.log(kleur.red(`Could not set local config`));
       }
 
       resolve();
