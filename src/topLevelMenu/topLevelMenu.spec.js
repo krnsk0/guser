@@ -39,7 +39,11 @@ jest.mock('./helpers', () => ({
       value: 'add',
     },
   ],
-  isWorkingDirAGitRepo: () => true,
+  isWorkingDirAGitRepo: jest
+    .fn()
+    .mockReturnValueOnce(true)
+    .mockReturnValueOnce(false)
+    .mockReturnValue(true),
   bailIfGitNotFound: () => null,
 }));
 
@@ -82,7 +86,7 @@ describe('The topLevelMenu fucntion', () => {
   it('should eventually throw when passed an undefined choice, but not before logging the user and email', async () => {
     prompts.inject([undefined]);
     expect.hasAssertions();
-    return topLevelMenu({ user: 'test', email: 'test@test.com' }).catch((e) => {
+    return topLevelMenu().catch((e) => {
       expect(e).toStrictEqual(new Error('SIGINT'));
       expect(console.log.mock.calls[1][0]).toEqual(
         expect.stringContaining(`test`)
@@ -93,24 +97,28 @@ describe('The topLevelMenu fucntion', () => {
     });
   });
 
+  it('should not log anything about the local config when not in a repo', () => {
+    expect(console.log.mock.calls.length).toBe(0);
+  });
+
   it('should call all helpers when their corresponding options are selected', async () => {
     prompts.inject([ADD, LIST, REMOVE, SET, UNSET]);
-    await topLevelMenu({ user: 'test', email: 'test@test.com' });
+    await topLevelMenu();
     expect(addUser).toHaveBeenCalledTimes(1);
-    await topLevelMenu({ user: 'test', email: 'test@test.com' });
+    await topLevelMenu();
     expect(listUsers).toHaveBeenCalledTimes(1);
-    await topLevelMenu({ user: 'test', email: 'test@test.com' });
+    await topLevelMenu();
     expect(removeUser).toHaveBeenCalledTimes(1);
-    await topLevelMenu({ user: 'test', email: 'test@test.com' });
+    await topLevelMenu();
     expect(setConfig).toHaveBeenCalledTimes(1);
-    await topLevelMenu({ user: 'test', email: 'test@test.com' });
+    await topLevelMenu();
     expect(unsetConfig).toHaveBeenCalledTimes(1);
   });
 
   it('should handle a SIGINT in a submenu, passing the failure upwards', async () => {
     prompts.inject([ADD]);
     setSimulateSigint(true);
-    return topLevelMenu({ user: 'test', email: 'test@test.com' }).catch((e) =>
+    return topLevelMenu().catch((e) =>
       expect(e).toStrictEqual(new Error('SIGINT'))
     );
   });

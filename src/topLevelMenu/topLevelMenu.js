@@ -18,16 +18,16 @@ const {
 
 const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
-const topLevelPrompt = ({ user, email }) =>
+const topLevelPrompt = ({ localUser, localEmail, isRepo }) =>
   prompts({
     type: 'select',
     name: 'choice',
     message: 'What would you like to do?',
     hint: '(use arrow keys & enter to select)',
     choices: topLevelChoiceFactory({
-      isRepo: isWorkingDirAGitRepo(),
+      isRepo,
       usersSaved: !!loadUserData().length,
-      wasLocalConfigFound: user || email,
+      wasLocalConfigFound: localUser || localEmail,
     }),
   });
 
@@ -43,14 +43,23 @@ const topLevelMenu = async () =>
   new Promise((resolve, reject) => {
     bailIfGitNotFound();
 
-    console.log(kleur.white().bold('Checking for local git config...'));
-    const { user, email } = getLocalGitConfig();
-    if (!user) console.log(kleur.green(`No local git user set`));
-    else console.log(`${kleur.green(`Local git user`)}: ${user}`);
-    if (!email) console.log(kleur.green(`No local git email set`));
-    else console.log(`${kleur.green(`Local git email`)}: ${email}`);
+    const isRepo = isWorkingDirAGitRepo();
+    let localUser, localEmail;
 
-    topLevelPrompt({ user, email }).then(({ choice }) => {
+    if (isRepo) {
+      console.log(kleur.white().bold('Checking for local git config...'));
+
+      const { user, email } = getLocalGitConfig();
+      localUser = user;
+      localEmail = email;
+
+      if (!user) console.log(kleur.green(`No local git user set`));
+      else console.log(`${kleur.green(`Local git user`)}: ${user}`);
+      if (!email) console.log(kleur.green(`No local git email set`));
+      else console.log(`${kleur.green(`Local git email`)}: ${email}`);
+    }
+
+    topLevelPrompt({ localUser, localEmail, isRepo }).then(({ choice }) => {
       if (choice === undefined) {
         return reject(new Error('SIGINT'));
       }
