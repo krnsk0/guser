@@ -82,7 +82,7 @@ describe('The topLevelMenu fucntion', () => {
   it('should eventually throw when passed an undefined choice, but not before logging the user and email', async () => {
     prompts.inject([undefined]);
     expect.hasAssertions();
-    return topLevelMenu().catch((e) => {
+    return topLevelMenu({ user: 'test', email: 'test@test.com' }).catch((e) => {
       expect(e).toStrictEqual(new Error('SIGINT'));
       expect(console.log.mock.calls[1][0]).toEqual(
         expect.stringContaining(`test`)
@@ -95,22 +95,22 @@ describe('The topLevelMenu fucntion', () => {
 
   it('should call all helpers when their corresponding options are selected', async () => {
     prompts.inject([ADD, LIST, REMOVE, SET, UNSET]);
-    await topLevelMenu();
+    await topLevelMenu({ user: 'test', email: 'test@test.com' });
     expect(addUser).toHaveBeenCalledTimes(1);
-    await topLevelMenu();
+    await topLevelMenu({ user: 'test', email: 'test@test.com' });
     expect(listUsers).toHaveBeenCalledTimes(1);
-    await topLevelMenu();
+    await topLevelMenu({ user: 'test', email: 'test@test.com' });
     expect(removeUser).toHaveBeenCalledTimes(1);
-    await topLevelMenu();
+    await topLevelMenu({ user: 'test', email: 'test@test.com' });
     expect(setConfig).toHaveBeenCalledTimes(1);
-    await topLevelMenu();
+    await topLevelMenu({ user: 'test', email: 'test@test.com' });
     expect(unsetConfig).toHaveBeenCalledTimes(1);
   });
 
   it('should handle a SIGINT in a submenu, passing the failure upwards', async () => {
     prompts.inject([ADD]);
     setSimulateSigint(true);
-    return topLevelMenu().catch((e) =>
+    return topLevelMenu({ user: 'test', email: 'test@test.com' }).catch((e) =>
       expect(e).toStrictEqual(new Error('SIGINT'))
     );
   });

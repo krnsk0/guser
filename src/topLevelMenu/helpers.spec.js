@@ -6,8 +6,14 @@ const {
 } = require('./helpers');
 
 describe('The topLevelChoiceFactory function', () => {
-  it('should return the right choices when in a repo and users are saved', () => {
-    expect(topLevelChoiceFactory({ isRepo: true, usersSaved: true })).toEqual([
+  it('should return the right choices when in a repo, when users are saved, when local config is present', () => {
+    expect(
+      topLevelChoiceFactory({
+        isRepo: true,
+        usersSaved: true,
+        wasLocalConfigFound: true,
+      })
+    ).toEqual([
       {
         title: 'Set local git user config',
         value: 'set',
@@ -32,14 +38,18 @@ describe('The topLevelChoiceFactory function', () => {
   });
 
   it('should return the right choices when not in a repo and no users are saved', () => {
-    expect(topLevelChoiceFactory({ isRepo: false, usersSaved: false })).toEqual(
-      [
-        {
-          title: 'Add user config to guser',
-          value: 'add',
-        },
-      ]
-    );
+    expect(
+      topLevelChoiceFactory({
+        isRepo: false,
+        usersSaved: false,
+        wasLocalConfigFound: false,
+      })
+    ).toEqual([
+      {
+        title: 'Add user config to guser',
+        value: 'add',
+      },
+    ]);
   });
 });
 

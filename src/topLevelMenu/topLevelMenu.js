@@ -18,7 +18,7 @@ const {
 
 const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
-const topLevelPrompt = () =>
+const topLevelPrompt = ({ user, email }) =>
   prompts({
     type: 'select',
     name: 'choice',
@@ -27,6 +27,7 @@ const topLevelPrompt = () =>
     choices: topLevelChoiceFactory({
       isRepo: isWorkingDirAGitRepo(),
       usersSaved: !!loadUserData().length,
+      wasLocalConfigFound: user || email,
     }),
   });
 
@@ -49,7 +50,7 @@ const topLevelMenu = async () =>
     if (!email) console.log(kleur.green(`No local git email set`));
     else console.log(`${kleur.green(`Local git email`)}: ${email}`);
 
-    topLevelPrompt().then(({ choice }) => {
+    topLevelPrompt({ user, email }).then(({ choice }) => {
       if (choice === undefined) {
         return reject(new Error('SIGINT'));
       }
