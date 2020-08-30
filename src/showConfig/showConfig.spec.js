@@ -18,20 +18,20 @@ describe('The showConfig function', () => {
   });
   it('should log the user and email when present', async () => {
     await showConfig();
-    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
-      `"[32mLocal user[39m: test"`
+    expect(console.log.mock.calls[0][0]).toEqual(
+      expect.stringContaining(`test`)
     );
-    expect(console.log.mock.calls[1][0]).toMatchInlineSnapshot(
-      `"[32mLocal email[39m: test@test.com"`
+    expect(console.log.mock.calls[1][0]).toEqual(
+      expect.stringContaining(`test@test.com`)
     );
   });
   it('should log when user/email not present', async () => {
     await showConfig();
-    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
-      `"[31mNo local user found[39m"`
+    expect(console.log.mock.calls[0][0]).toEqual(
+      expect.stringContaining(`No local user found`)
     );
-    expect(console.log.mock.calls[1][0]).toMatchInlineSnapshot(
-      `"[31mNo local email found[39m"`
+    expect(console.log.mock.calls[1][0]).toEqual(
+      expect.stringContaining(`No local email found`)
     );
   });
 });

@@ -49,8 +49,8 @@ describe('The setConfig function', () => {
     prompts.inject('Zl0YIYORhnHCFLIxhqCY2YgQA1M=');
     await setConfig();
     expect(setLocalGitUser.mock.calls[0]).toEqual(['test2', 'test2@test2.com']);
-    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
-      `"[32mguser set local config to[39m: test2, test2@test2.com"`
+    expect(console.log.mock.calls[0][0]).toEqual(
+      expect.stringContaining(`test2, test2@test2.com`)
     );
   });
 
@@ -58,8 +58,8 @@ describe('The setConfig function', () => {
     prompts.inject('Zl0YIYORhnHCFLIxhqCY2YgQA1M=');
     await setConfig();
     expect(setLocalGitUser.mock.calls[0]).toEqual(['test2', 'test2@test2.com']);
-    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
-      `"[31mguser could not set local config[39m"`
+    expect(console.log.mock.calls[0][0]).toEqual(
+      expect.stringContaining(`guser could not set local config`)
     );
   });
 

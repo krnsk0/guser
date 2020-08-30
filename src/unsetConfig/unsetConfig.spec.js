@@ -20,15 +20,15 @@ describe('The unsetConfig function', () => {
   it('should call the unsetLocalConfig helper and log on success', async () => {
     await unsetConfig();
     expect(unsetLocalGitUser).toHaveBeenCalled();
-    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
-      `"[32mguser unset local config[39m"`
+    expect(console.log.mock.calls[0][0]).toEqual(
+      expect.stringContaining(`guser unset local config`)
     );
   });
   it('should call the unsetLocalConfig helper and log on failure', async () => {
     await unsetConfig();
     expect(unsetLocalGitUser).toHaveBeenCalled();
-    expect(console.log.mock.calls[0][0]).toMatchInlineSnapshot(
-      `"[31mguser could not unset local config[39m"`
+    expect(console.log.mock.calls[0][0]).toEqual(
+      expect.stringContaining(`guser could not unset local config`)
     );
   });
 });
