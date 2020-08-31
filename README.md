@@ -44,4 +44,4 @@ To start:
 guser
 ```
 
-The chosen user/email config is set in the current working directory, so you'll need to be inside a repo in order to configure it to use one of your stored configs.
+The chosen user/email config is set in the repository corresponding to the current working directory, so you'll need to be inside a repo in order to configure it to use one of your stored configs. `guser` works by shelling out to [`git config`](https://git-scm.com/docs/git-config) to edit the `config` file stored in the `.git` directory of the repository.
