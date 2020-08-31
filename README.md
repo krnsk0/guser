@@ -45,3 +45,5 @@ guser
 ```
 
 The chosen user/email config is set in the repository corresponding to the current working directory, so you'll need to be inside a repo in order to configure it to use one of your stored configs. `guser` works by shelling out to [`git config`](https://git-scm.com/docs/git-config) to edit the `config` file stored in the `.git` directory of the repository.
+
+You likely set a username and email via `git config` when setting up git for the first time. This is stored in a configuration file in your user directory. `guser` checks for a local config on startup when invoked inside a repository and prints the user and email (if found) to the console. If no username and email are set via the config file local to a repository, `git` defaults to user/email values set in the global config file, if any, when committing staged changes.
