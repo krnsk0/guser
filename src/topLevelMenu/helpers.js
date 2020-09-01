@@ -2,19 +2,21 @@ const shell = require('shelljs');
 
 const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
+const { NO_GIT_ERROR, TOP_LEVEL_OPTIONS } = require('../strings');
+
 const topLevelChoiceFactory = ({ isRepo, usersSaved, wasLocalConfigFound }) => {
   const choices = [];
 
   if (usersSaved && isRepo) {
     choices.push({
-      title: 'Set local git user config',
+      title: TOP_LEVEL_OPTIONS[SET],
       value: SET,
     });
   }
 
   if (isRepo && wasLocalConfigFound) {
     choices.push({
-      title: 'Unset local git user config',
+      title: TOP_LEVEL_OPTIONS[UNSET],
       value: UNSET,
     });
   }
@@ -22,18 +24,18 @@ const topLevelChoiceFactory = ({ isRepo, usersSaved, wasLocalConfigFound }) => {
   if (usersSaved) {
     choices.push(
       {
-        title: 'Remove user config from guser',
+        title: TOP_LEVEL_OPTIONS[REMOVE],
         value: REMOVE,
       },
       {
-        title: 'List configs in guser',
+        title: TOP_LEVEL_OPTIONS[LIST],
         value: LIST,
       }
     );
   }
 
   choices.push({
-    title: 'Add user config to guser',
+    title: TOP_LEVEL_OPTIONS[ADD],
     value: ADD,
   });
 
@@ -47,7 +49,7 @@ const isWorkingDirAGitRepo = () => {
 
 const bailIfGitNotFound = () => {
   if (!shell.which('git')) {
-    console.log('This script requires git');
+    console.log(NO_GIT_ERROR);
     shell.exit(1);
   }
 };
