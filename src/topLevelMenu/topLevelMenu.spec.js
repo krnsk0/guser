@@ -1,12 +1,14 @@
 const { topLevelMenu } = require('./topLevelMenu');
-
-const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
+const helpers = require('./helpers');
+const { SET, UNSET, ADD, REMOVE, LIST } = require('../constants');
 
 const { addUser, setSimulateSigint } = require('../addUser/addUser');
 const { listUsers } = require('../listUsers/listUsers');
 const { removeUser } = require('../removeUser/removeUser');
 const { setConfig } = require('../setConfig/setConfig');
 const { unsetConfig } = require('../unsetConfig/unsetConfig');
+
+const { TOP_LEVEL_OPTIONS } = require('../strings');
 
 jest.mock('../utils', () => ({
   getLocalGitConfig: jest
@@ -17,28 +19,7 @@ jest.mock('../utils', () => ({
 }));
 
 jest.mock('./helpers', () => ({
-  topLevelChoiceFactory: () => [
-    {
-      title: 'Set local git user config',
-      value: 'set',
-    },
-    {
-      title: 'Unset local git user config',
-      value: 'unset',
-    },
-    {
-      title: 'Remove user config from guser',
-      value: 'remove',
-    },
-    {
-      title: 'List configs in guser',
-      value: 'list',
-    },
-    {
-      title: 'Add user config to guser',
-      value: 'add',
-    },
-  ],
+  topLevelChoiceFactory: jest.fn(),
   isWorkingDirAGitRepo: jest
     .fn()
     .mockReturnValueOnce(true)
@@ -46,6 +27,29 @@ jest.mock('./helpers', () => ({
     .mockReturnValue(true),
   bailIfGitNotFound: () => null,
 }));
+
+helpers.topLevelChoiceFactory.mockImplementation(() => [
+  {
+    title: TOP_LEVEL_OPTIONS[SET],
+    value: SET,
+  },
+  {
+    title: TOP_LEVEL_OPTIONS[UNSET],
+    value: UNSET,
+  },
+  {
+    title: TOP_LEVEL_OPTIONS[REMOVE],
+    value: REMOVE,
+  },
+  {
+    title: TOP_LEVEL_OPTIONS[LIST],
+    value: LIST,
+  },
+  {
+    title: TOP_LEVEL_OPTIONS[ADD],
+    value: ADD,
+  },
+]);
 
 jest.mock('../addUser/addUser', () => {
   let simulateSigint = false;

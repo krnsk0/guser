@@ -16,7 +16,7 @@ const {
   bailIfGitNotFound,
 } = require('./helpers');
 
-const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
+const { SET, UNSET, ADD, REMOVE, LIST } = require('../constants');
 
 const {
   TOP_LEVEL_PROMPT,

@@ -1,6 +1,6 @@
 const shell = require('shelljs');
 
-const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
+const { SET, UNSET, ADD, REMOVE, LIST } = require('../constants');
 
 const { NO_GIT_ERROR, TOP_LEVEL_OPTIONS } = require('../strings');
 

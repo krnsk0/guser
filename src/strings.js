@@ -1,5 +1,5 @@
 const kleur = require('kleur');
-const { SET, UNSET, ADD, REMOVE, LIST } = require('./topLevelMenu/constants');
+const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
 const TOP_LEVEL_PROMPT = 'What would you like to do?';
 const TOP_LEVEL_HINT = '(use arrow keys & enter to select)';
