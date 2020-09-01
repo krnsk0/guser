@@ -18,12 +18,22 @@ const {
 
 const { SET, UNSET, ADD, REMOVE, LIST } = require('./constants');
 
+const {
+  TOP_LEVEL_PROMPT,
+  TOP_LEVEL_HINT,
+  CHECKING_CONFIG,
+  NO_LOCAL_USER,
+  NO_LOCAL_EMAIL,
+  LOCAL_USER,
+  LOCAL_EMAIL,
+} = require('../strings');
+
 const topLevelPrompt = ({ localUser, localEmail, isRepo }) =>
   prompts({
     type: 'select',
     name: 'choice',
-    message: 'What would you like to do?',
-    hint: '(use arrow keys & enter to select)',
+    message: TOP_LEVEL_PROMPT,
+    hint: TOP_LEVEL_HINT,
     choices: topLevelChoiceFactory({
       isRepo,
       usersSaved: !!loadUserData().length,
@@ -47,16 +57,16 @@ const topLevelMenu = async () =>
     let localUser, localEmail;
 
     if (isRepo) {
-      console.log(kleur.white().bold('Checking for local git config...'));
+      console.log(kleur.white().bold(CHECKING_CONFIG));
 
       const { user, email } = getLocalGitConfig();
       localUser = user;
       localEmail = email;
 
-      if (!user) console.log(kleur.green(`No local git user set`));
-      else console.log(`${kleur.green(`Local git user`)}: ${user}`);
-      if (!email) console.log(kleur.green(`No local git email set`));
-      else console.log(`${kleur.green(`Local git email`)}: ${email}`);
+      if (!user) console.log(kleur.green(NO_LOCAL_USER));
+      else console.log(LOCAL_USER(user));
+      if (!email) console.log(kleur.green(NO_LOCAL_EMAIL));
+      else console.log(LOCAL_EMAIL(email));
     }
 
     topLevelPrompt({ localUser, localEmail, isRepo }).then(({ choice }) => {
