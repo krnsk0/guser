@@ -9,7 +9,6 @@ const setUserPrompt = (userData) =>
       type: 'select',
       name: 'hash',
       message: 'Choose a user config to set in the local git repo',
-      hint: '(use arrow keys & enter to select)',
       choices: makeChoicesFromUsers(userData),
     },
     {}

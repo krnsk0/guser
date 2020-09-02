@@ -12,7 +12,6 @@ const removeUserPrompt = (userData) =>
       type: 'select',
       name: 'hash',
       message: 'Which user should be removed from guser?',
-      hint: '(use arrow keys & enter to select)',
       choices: makeChoicesFromUsers(userData),
     },
     {}

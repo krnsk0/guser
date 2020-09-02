@@ -8,7 +8,7 @@ const { removeUser } = require('../removeUser/removeUser');
 const { setConfig } = require('../setConfig/setConfig');
 const { unsetConfig } = require('../unsetConfig/unsetConfig');
 
-const { TOP_LEVEL_OPTIONS } = require('../strings');
+const { TOP_LEVEL_OPTIONS, LOCAL_USER, LOCAL_EMAIL } = require('../strings');
 
 jest.mock('../utils', () => ({
   getLocalGitConfig: jest
@@ -92,11 +92,9 @@ describe('The topLevelMenu fucntion', () => {
     expect.hasAssertions();
     return topLevelMenu().catch((e) => {
       expect(e).toStrictEqual(new Error('SIGINT'));
-      expect(console.log.mock.calls[1][0]).toEqual(
-        expect.stringContaining(`test`)
-      );
+      expect(console.log.mock.calls[1][0]).toEqual(LOCAL_USER(`test`));
       expect(console.log.mock.calls[2][0]).toEqual(
-        expect.stringContaining(`test@test.com`)
+        LOCAL_EMAIL(`test@test.com`)
       );
     });
   });

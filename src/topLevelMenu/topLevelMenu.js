@@ -20,7 +20,6 @@ const { SET, UNSET, ADD, REMOVE, LIST } = require('../constants');
 
 const {
   TOP_LEVEL_PROMPT,
-  TOP_LEVEL_HINT,
   CHECKING_CONFIG,
   NO_LOCAL_USER,
   NO_LOCAL_EMAIL,
@@ -33,7 +32,6 @@ const topLevelPrompt = ({ localUser, localEmail, isRepo }) =>
     type: 'select',
     name: 'choice',
     message: TOP_LEVEL_PROMPT,
-    hint: TOP_LEVEL_HINT,
     choices: topLevelChoiceFactory({
       isRepo,
       usersSaved: !!loadUserData().length,
