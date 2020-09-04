@@ -1,17 +1,17 @@
-const kleur = require('kleur');
 const prompts = require('prompts');
 const {
   loadUserData,
   removeUserByHash,
   makeChoicesFromUsers,
 } = require('../utils');
+const { REMOVE_PROMPT, USER_REMOVED } = require('../strings');
 
 const removeUserPrompt = (userData) =>
   prompts(
     {
       type: 'select',
       name: 'hash',
-      message: 'Which user should be removed from guser?',
+      message: REMOVE_PROMPT,
       choices: makeChoicesFromUsers(userData),
     },
     {}
@@ -26,9 +26,7 @@ const removeUser = () =>
       }
       const { username, email } = userData.find((entry) => entry.hash === hash);
       removeUserByHash(hash);
-      console.log(
-        kleur.green(`Removing user: `) + username + kleur.green(', ') + email
-      );
+      console.log(USER_REMOVED(username, email));
       resolve();
     });
   });

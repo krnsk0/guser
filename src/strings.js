@@ -27,6 +27,15 @@ const SET_SUCCESSFUL = (username, email) =>
   `${kleur.green('Set local config to')}: ${username}, ${email}`;
 const SET_FAILED = kleur.red(`Could not set local config`);
 
+// remove
+const REMOVE_PROMPT = 'Which user should be removed from guser?';
+const USER_REMOVED = (username, email) =>
+  kleur.green(`Removing user: `) + username + kleur.green(', ') + email;
+
+// list
+
+// add
+
 module.exports = {
   TOP_LEVEL_PROMPT,
   CHECKING_CONFIG,
@@ -41,4 +50,6 @@ module.exports = {
   SET_PROMPT,
   SET_SUCCESSFUL,
   SET_FAILED,
+  REMOVE_PROMPT,
+  USER_REMOVED,
 };
