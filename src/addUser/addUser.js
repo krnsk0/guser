@@ -1,7 +1,8 @@
-const kleur = require('kleur');
 const prompts = require('prompts');
 
 const { saveUserData } = require('../utils');
+
+const { USER_ADDED } = require('../strings');
 
 const addUserPrompt = () =>
   prompts(
@@ -29,9 +30,7 @@ const addUser = () =>
         return reject(new Error('SIGINT'));
       }
       saveUserData({ username, email });
-      console.log(
-        kleur.green(`Added user: `) + username + kleur.green(', ') + email
-      );
+      console.log(USER_ADDED(username, email));
       resolve();
     });
   });

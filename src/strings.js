@@ -32,9 +32,9 @@ const REMOVE_PROMPT = 'Which user should be removed from guser?';
 const USER_REMOVED = (username, email) =>
   kleur.green(`Removing user: `) + username + kleur.green(', ') + email;
 
-// list
-
 // add
+const USER_ADDED = (username, email) =>
+  kleur.green(`Added user: `) + username + kleur.green(', ') + email;
 
 module.exports = {
   TOP_LEVEL_PROMPT,
@@ -52,4 +52,5 @@ module.exports = {
   SET_FAILED,
   REMOVE_PROMPT,
   USER_REMOVED,
+  USER_ADDED,
 };
