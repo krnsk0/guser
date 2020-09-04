@@ -8,17 +8,17 @@
   |___/
 ```
 
-![Coverage lines](https://github.com/krnsk0/guser/blob/master/static/badge-lines.svg)
-![Coverage functions](https://github.com/krnsk0/guser/blob/master/static/static/badge-functions.svg)
-![Coverage branches](https://github.com/krnsk0/guser/blob/master/static/static/badge-branches.svg)
-![Coverage statements](https://github.com/krnsk0/guser/blob/master/static/static/badge-statements.svg)
+![Coverage lines](/static/badge-lines.svg)
+![Coverage functions](/static/static/badge-functions.svg)
+![Coverage branches](/static/static/badge-branches.svg)
+![Coverage statements](/static/static/badge-statements.svg)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## What is this?
 
-Do you manage multiple git users on a single machine? Do you often switch between work and personal git accounts and configure different repositories to use differnet accounts? `guser` is an interactive tool inspired by [WindomZ's `gituser`](https://github.com/WindomZ/gituser.js) that helps make git user-switching a tiny bit easier by remembering user/email combinations you've used in the past.
+Do you manage multiple git users on a single machine? Do you often switch between work and personal git accounts and configure different repositories to use different accounts? `guser` is an interactive tool inspired by [WindomZ's `gituser`](https://github.com/WindomZ/gituser.js) that helps make git user-switching a tiny bit easier by remembering user/email combinations you've used in the past.
 
 <img src="./static/screenshot.png" width="400">
 
