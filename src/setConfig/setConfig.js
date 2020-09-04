@@ -1,14 +1,14 @@
 const prompts = require('prompts');
-const kleur = require('kleur');
 const { setLocalGitUser } = require('./helpers');
 const { loadUserData, makeChoicesFromUsers } = require('../utils');
+const { SET_PROMPT, SET_SUCCESSFUL, SET_FAILED } = require('../strings');
 
 const setUserPrompt = (userData) =>
   prompts(
     {
       type: 'select',
       name: 'hash',
-      message: 'Choose a user config to set in the local git repo',
+      message: SET_PROMPT,
       choices: makeChoicesFromUsers(userData),
     },
     {}
@@ -23,11 +23,9 @@ const setConfig = () =>
       }
       const { username, email } = userData.find((entry) => entry.hash === hash);
       if (setLocalGitUser(username, email)) {
-        console.log(
-          `${kleur.green('Set local config to')}: ${username}, ${email}`
-        );
+        console.log(SET_SUCCESSFUL(username, email));
       } else {
-        console.log(kleur.red(`Could not set local config`));
+        console.log(SET_FAILED);
       }
 
       resolve();

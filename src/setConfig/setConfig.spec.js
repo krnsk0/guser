@@ -1,5 +1,7 @@
 const { setConfig } = require('./setConfig');
 const { setLocalGitUser } = require('./helpers');
+const { SET_SUCCESSFUL, SET_FAILED } = require('../strings');
+
 const prompts = require('prompts');
 
 jest.mock('../utils', () => ({
@@ -50,7 +52,7 @@ describe('The setConfig function', () => {
     await setConfig();
     expect(setLocalGitUser.mock.calls[0]).toEqual(['test2', 'test2@test2.com']);
     expect(console.log.mock.calls[0][0]).toEqual(
-      expect.stringContaining(`test2, test2@test2.com`)
+      SET_SUCCESSFUL('test2', 'test2@test2.com')
     );
   });
 
@@ -58,9 +60,7 @@ describe('The setConfig function', () => {
     prompts.inject('Zl0YIYORhnHCFLIxhqCY2YgQA1M=');
     await setConfig();
     expect(setLocalGitUser.mock.calls[0]).toEqual(['test2', 'test2@test2.com']);
-    expect(console.log.mock.calls[0][0]).toEqual(
-      expect.stringContaining(`Could not set local config`)
-    );
+    expect(console.log.mock.calls[0][0]).toEqual(SET_FAILED);
   });
 
   it('should eventually throw when the user exists the prompt', async () => {

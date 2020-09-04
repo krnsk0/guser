@@ -21,6 +21,12 @@ const TOP_LEVEL_OPTIONS = {
 const UNSET_SUCCESSFUL = kleur.green('Local user/email config unset');
 const UNSET_FAILED = kleur.red('Could not unset local config');
 
+// set
+const SET_PROMPT = 'Choose a user config to set in the local git repo';
+const SET_SUCCESSFUL = (username, email) =>
+  `${kleur.green('Set local config to')}: ${username}, ${email}`;
+const SET_FAILED = kleur.red(`Could not set local config`);
+
 module.exports = {
   TOP_LEVEL_PROMPT,
   CHECKING_CONFIG,
@@ -32,4 +38,7 @@ module.exports = {
   TOP_LEVEL_OPTIONS,
   UNSET_SUCCESSFUL,
   UNSET_FAILED,
+  SET_PROMPT,
+  SET_SUCCESSFUL,
+  SET_FAILED,
 };
