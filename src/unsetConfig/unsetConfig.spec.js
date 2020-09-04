@@ -1,5 +1,6 @@
 const { unsetConfig } = require('./unsetConfig');
 const { unsetLocalGitUser } = require('./helpers');
+const { UNSET_SUCCESSFUL, UNSET_FAILED } = require('../strings');
 
 jest.mock('./helpers', () => ({
   unsetLocalGitUser: jest
@@ -20,15 +21,11 @@ describe('The unsetConfig function', () => {
   it('should call the unsetLocalConfig helper and log on success', async () => {
     await unsetConfig();
     expect(unsetLocalGitUser).toHaveBeenCalled();
-    expect(console.log.mock.calls[0][0]).toEqual(
-      expect.stringContaining(`Local user/email config unset`)
-    );
+    expect(console.log.mock.calls[0][0]).toEqual(UNSET_SUCCESSFUL);
   });
   it('should call the unsetLocalConfig helper and log on failure', async () => {
     await unsetConfig();
     expect(unsetLocalGitUser).toHaveBeenCalled();
-    expect(console.log.mock.calls[0][0]).toEqual(
-      expect.stringContaining(`Could not unset local config`)
-    );
+    expect(console.log.mock.calls[0][0]).toEqual(UNSET_FAILED);
   });
 });

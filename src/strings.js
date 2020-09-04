@@ -18,8 +18,8 @@ const TOP_LEVEL_OPTIONS = {
 };
 
 // unset
-const UNSET_SUCCESSFUL = 'Local user/email config unset';
-const UNSET_FAILED = 'Could not unset local config';
+const UNSET_SUCCESSFUL = kleur.green('Local user/email config unset');
+const UNSET_FAILED = kleur.red('Could not unset local config');
 
 module.exports = {
   TOP_LEVEL_PROMPT,
