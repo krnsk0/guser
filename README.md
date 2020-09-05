@@ -9,9 +9,9 @@
 ```
 
 ![Coverage lines](/static/badge-lines.svg)
-![Coverage functions](/static/static/badge-functions.svg)
-![Coverage branches](/static/static/badge-branches.svg)
-![Coverage statements](/static/static/badge-statements.svg)
+![Coverage functions](/static/badge-functions.svg)
+![Coverage branches](/static/badge-branches.svg)
+![Coverage statements](/static/badge-statements.svg)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
