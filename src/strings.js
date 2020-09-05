@@ -33,6 +33,8 @@ const USER_REMOVED = (username, email) =>
   kleur.green(`Removing user: `) + username + kleur.green(', ') + email;
 
 // add
+const USERNAME_PROMPT = 'Enter username';
+const EMAIL_PROMPT = 'Enter email';
 const USER_ADDED = (username, email) =>
   kleur.green(`Added user: `) + username + kleur.green(', ') + email;
 
@@ -52,5 +54,7 @@ module.exports = {
   SET_FAILED,
   REMOVE_PROMPT,
   USER_REMOVED,
+  USERNAME_PROMPT,
+  EMAIL_PROMPT,
   USER_ADDED,
 };

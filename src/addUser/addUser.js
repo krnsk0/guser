@@ -2,7 +2,7 @@ const prompts = require('prompts');
 
 const { saveUserData } = require('../utils');
 
-const { USER_ADDED } = require('../strings');
+const { USERNAME_PROMPT, EMAIL_PROMPT, USER_ADDED } = require('../strings');
 
 const addUserPrompt = () =>
   prompts(
@@ -10,13 +10,13 @@ const addUserPrompt = () =>
       {
         type: 'text',
         name: 'username',
-        message: "Enter the user's username",
+        message: USERNAME_PROMPT,
         max: 50,
       },
       {
         type: 'text',
         name: 'email',
-        message: "Enter the user's email",
+        message: EMAIL_PROMPT,
         max: 50,
       },
     ],
