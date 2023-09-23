@@ -1,4 +1,4 @@
-name: run tests for three node versions
+name: run tests for several node versions
 
 on:
   push:
