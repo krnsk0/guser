@@ -1,6 +1,6 @@
 > Interactive git user switcher
 
-```
+```text
    __ _ _   _ ___  ___ _ __
   / _` | | | / __|/ _ \ '__|
  | (_| | |_| \__ \  __/ |
